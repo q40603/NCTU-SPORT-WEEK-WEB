@@ -4,13 +4,13 @@ exports.signup = function(req, res){
    message = '';
    if(req.method == "POST"){
       var post  = req.body;
-      var name= post.user_name;
+      var name= post.name;
+      var id= post.id;
+      var email= post.email;
+      var phone_num= post.phone_num;
       var pass= post.password;
-      var fname= post.first_name;
-      var lname= post.last_name;
-      var mob= post.mob_no;
 
-      var sql = "INSERT INTO `users`(`first_name`,`last_name`,`mob_no`,`user_name`, `password`) VALUES ('" + fname + "','" + lname + "','" + mob + "','" + name + "','" + pass + "')";
+      var sql = "INSERT INTO `user`(`name`,`id`,`email`,`phone_num`, `password`) VALUES ('" + name + "','" + id + "','" + email + "','" + phone_num + "','" + pass + "')";
 
       var query = db.query(sql, function(err, result) {
 
@@ -30,10 +30,10 @@ exports.login = function(req, res){
 
    if(req.method == "POST"){
       var post  = req.body;
-      var name= post.user_name;
+      var name= post.name;
       var pass= post.password;
      
-      var sql="SELECT id, first_name, last_name, user_name FROM `users` WHERE `user_name`='"+name+"' and password = '"+pass+"'";                           
+      var sql="SELECT id, name FROM `user` WHERE `name='"+name+"' and password = '"+pass+"'";                           
       db.query(sql, function(err, results){      
          if(results.length){
             req.session.userId = results[0].id;
