@@ -37,7 +37,6 @@ exports.signup = function(req, res){
 exports.login = function(req, res){
    var message = '';
    var sess = req.session; 
-
    if(req.method == "POST"){
       var post  = req.body;
       var uid= post.uid;
@@ -53,16 +52,15 @@ exports.login = function(req, res){
             res.redirect('/home/dashboard');
          }
          else{
-            message = 'Wrong Credentials.';
-            res.render('index.ejs',{message: message});
+            message = '帳號或密碼輸入錯誤';
+            res.render('login.ejs',{message: message});
          }
                  
       });
    } 
    else {
-      res.render('index.ejs',{message: message});
-   }
-           
+      res.render('login.ejs',{message: message});
+   }      
 };
 //-----------------------------------------------dashboard page functionality----------------------------------------------
            
@@ -102,6 +100,39 @@ exports.profile = function(req, res){
       res.render('profile.ejs',{data:result});
    });
 };
+//---------------------------------render event list-----------------------------------------------
+exports.evenlist = function(req, res){
+   var sql = "SELECT ename, remain FROM `event`";
+   db.query(sql, function(err, result){  
+      res.render('evenlist.ejs',{data:result});
+   });   
+}
+//---------------------------------render announce title-------------------------------------------
+exports.index = function(req, res){
+   var sql = "SELECT announce_id, year(announce_date) as year, month(announce_date) as month, day(announce_date) as day, title from `announce`";
+   db.query(sql, function(err, result){  
+      res.render('index.ejs',{data:result});
+   });   
+}
+//---------------------------------render announce content-----------------------------------------------
+exports.anncs = function(req, res){
+   
+   if(req.method == "POST"){
+      console.log("fuck");
+      var post  = req.body;
+      var id= post.announce_id;
+      console.log(id); 
+      var sql="SELECT content FROM `announce` WHERE `announce_id`='"+id+"'";   
+                           
+      db.query(sql, function(err, results){    
+         console.log(results[0].content);
+         res.render('anncs.ejs',{data:results});  
+      });
+   } 
+   else {
+      res.render('index.ejs',{data:results});
+   }   
+}
 //---------------------------------edit users details after login----------------------------------
 exports.editprofile=function(req,res){
    var id = req.session.id;

@@ -38,13 +38,16 @@ app.use(session({
  
 // development only
  
-app.get('/', routes.index);//call for main index page
+app.get('/', user.index);//call for main index page
 app.get('/signup', user.signup);//call for signup page
 app.post('/signup', user.signup);//call for signup post 
-app.get('/login', routes.index);//call for login page
+app.get('/login', user.login);//call for login page
 app.post('/login', user.login);//call for login post
 app.get('/home/dashboard', user.dashboard);//call for dashboard page after login
 app.get('/home/logout', user.logout);//call for logout
 app.get('/home/profile',user.profile);//to render users profile
+app.get('/evenlist',user.evenlist);//to render eventlist
+app.get('/anncs',user.anncs);//to render eventlist
+app.post('/anncs',user.anncs);
 //Middleware
 app.listen(8080)
