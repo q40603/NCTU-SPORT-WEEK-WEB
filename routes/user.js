@@ -113,21 +113,15 @@ exports.index = function(req, res){
 //---------------------------------render announce content-----------------------------------------------
 exports.anncs = function(req, res){
    
-   if(req.method == "POST"){
       console.log("fuck");
-      var post  = req.body;
-      var id= post.announce_id;
+      var id= req.params.annc_id;
       console.log(id); 
       var sql="SELECT title, content, announce_date FROM `announce` WHERE `announce_id`='"+id+"'";   
                            
       db.query(sql, function(err, results){    
-         //console.log(results[0].content);
          res.render('anncs.ejs',{data:results});  
       });
-   } 
-   else {
-      res.render('index.ejs',{data:results});
-   }   
+      
 }
 //---------------------------------edit users details after login----------------------------------
 exports.editprofile=function(req,res){
