@@ -12,7 +12,7 @@
                 <tbody>
           <% for(var i=0; i<data.length; i++) {%>
             <tr>
-                <td ><%= data[i].year %>/<%= data[i].month %>/<%= data[i].day %></td>
+                <td><%= data[i].year %>/<%= data[i].month %>/<%= data[i].day %></td>
                  <td><form id = "content" method='post' action='/anncs' >
                        <input type="hidden" name= "announce_id" value = <%= data[i].announce_id %> />
                         <a  onclick="content.submit()" style="cursor: pointer"><%= data[i].title %></a>                  

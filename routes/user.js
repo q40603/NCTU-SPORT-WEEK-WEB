@@ -125,7 +125,7 @@ exports.anncs = function(req, res){
       var sql="SELECT content FROM `announce` WHERE `announce_id`='"+id+"'";   
                            
       db.query(sql, function(err, results){    
-         console.log(results[0].content);
+         //console.log(results[0].content);
          res.render('anncs.ejs',{data:results});  
       });
    } 

@@ -12,10 +12,11 @@ var app = express();
 var mysql      = require('mysql');
 var bodyParser=require("body-parser");
 var connection = mysql.createConnection({
-            host     : 'localhost',
-            user     : 'tkche870302',
-            password : 'Mq870955677765', 
-            database : 'test'
+            host     : 'localhost', 
+            user     : 'root',
+            password : '112',
+            database : 'test',
+            //socketPath : '/tmp/mysql.sock'
             });
  
 connection.connect();
@@ -49,5 +50,6 @@ app.get('/home/profile',user.profile);//to render users profile
 app.get('/evenlist',user.evenlist);//to render eventlist
 app.get('/anncs',user.anncs);//to render eventlist
 app.post('/anncs',user.anncs);
+app.get('/anncsadd',user.signup);
 //Middleware
 app.listen(8080)
