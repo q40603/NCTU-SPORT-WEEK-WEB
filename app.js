@@ -18,9 +18,15 @@ var connection = mysql.createConnection({
             database : 'test',
             //socketPath : '/tmp/mysql.sock'
             });
- 
-connection.connect();
- 
+ connection.connect();
+connection.connect(function(err){
+  if(err){
+    console.log('Error connecting to Db');
+    return;
+  }
+  console.log('Connection established');
+});
+
 global.db = connection;
  
 // all environments
@@ -33,7 +39,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(session({
               secret: 'keyboard cat',
               resave: false,
-              saveUninitialized: false,
+              saveUninitialized: true,
               cookie: { maxAge: 60000 }
             }))
  
@@ -44,6 +50,8 @@ app.get('/signup', user.signup);//call for signup page
 app.post('/signup', user.signup);//call for signup post 
 app.get('/login', user.login);//call for login page
 app.post('/login', user.login);//call for login post
+app.get('/logout', user.login);//call for logout page
+app.post('/logout', user.login);//call for logout post
 app.get('/home/dashboard', user.dashboard);//call for dashboard page after login
 app.get('/home/logout', user.logout);//call for logout
 app.get('/home/profile',user.profile);//to render users profile

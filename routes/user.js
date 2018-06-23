@@ -12,14 +12,9 @@ exports.signup = function(req, res){
       var pass= post.password;
       var department = post.department;
       var gender = post.gender;
-      console.log(phone_num);
-      /*var dep_id_search = "select dcid from `department` where `dname`='"+department+"' ";
-      var dcid;
-      var query = db.query(dep_id_search, function(err, result) {
-         dcid = result[0].dcid;
-         console.log(dcid);
-      });*/
-      var sql = "INSERT INTO `user`(`uid`,`dcid`,`uname`,`gender`,`email`,`phone_num`, `password`) VALUES ('" + uid + "','"+ department +"','" + uname + "','" + gender + "','" + email + "','" + phone_num + "','" + pass + "')";
+      var grade = post.grade;
+      console.log(post);
+      var sql = "INSERT INTO `test`.`user` (`uid`, `dcid`, `uname`, `gender`, `email`, `phone_num`, `password`, `grade`) VALUES ('" + uid + "','"+ department +"','" + uname + "','" + gender + "','" + email + "','" + phone_num + "','" + pass + "','" + grade + "');"
 
       var query = db.query(sql, function(err, result) {
          console.log(result)
@@ -27,7 +22,8 @@ exports.signup = function(req, res){
          res.render('signup.ejs',{message: message});
       });
 
-   } else {
+   } 
+   else {
 
       res.render('signup');
    }
@@ -122,7 +118,7 @@ exports.anncs = function(req, res){
       var post  = req.body;
       var id= post.announce_id;
       console.log(id); 
-      var sql="SELECT content FROM `announce` WHERE `announce_id`='"+id+"'";   
+      var sql="SELECT title, content, announce_date FROM `announce` WHERE `announce_id`='"+id+"'";   
                            
       db.query(sql, function(err, results){    
          //console.log(results[0].content);
