@@ -97,10 +97,10 @@ exports.profile = function(req, res){
    });
 };
 //---------------------------------render event list-----------------------------------------------
-exports.evenlist = function(req, res){
+exports.events = function(req, res){
    var sql = "SELECT ename, remain FROM `event`";
    db.query(sql, function(err, result){  
-      res.render('evenlist.ejs',{data:result});
+      res.render('events.ejs',{data:result});
    });   
 }
 //---------------------------------render announce title-------------------------------------------
@@ -122,6 +122,18 @@ exports.anncs = function(req, res){
          res.render('anncs.ejs',{data:results});  
       });
       
+}
+//---------------------------------------------Delete annc-----------------------------------------------
+exports.anncDelete = function(req, res){
+
+      var id = req.params.annc_id;
+      var sql = "Delete FROM `announce` WHERE `announce_id`='"+id+"'";
+
+      db.query(sql, function(err,results){
+         res.redirect("/");
+      });
+
+
 }
 //---------------------------------edit users details after login----------------------------------
 exports.editprofile=function(req,res){

@@ -55,9 +55,10 @@ app.post('/logout', user.login);//call for logout post
 app.get('/home/dashboard', user.dashboard);//call for dashboard page after login
 app.get('/home/logout', user.logout);//call for logout
 app.get('/home/profile',user.profile);//to render users profile
-app.get('/evenlist',user.evenlist);//to render eventlist
+app.get('/events',user.events);//to render eventlist
 app.get('/anncs/:annc_id',user.anncs);//to render eventlist
 app.post('/anncs',user.index);
 app.get('/anncsadd',user.signup);
+app.get('/anncs/:annc_id/delete', user.anncDelete);//to delete the announce with annc_id
 //Middleware
 app.listen(8080)
