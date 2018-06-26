@@ -42,10 +42,11 @@ exports.login = function(req, res){
       db.query(sql, function(err, results){    
           console.log(results[0]);
          if(results.length){
+            req.session.login = true;
             req.session.uid = results[0].uid;
             req.session.user = results[0];
             console.log(results[0].uid);
-            res.redirect('/home/dashboard');
+            res.redirect('/');
          }
          else{
             message = '帳號或密碼輸入錯誤';
@@ -58,8 +59,15 @@ exports.login = function(req, res){
       res.render('login.ejs',{message: message});
    }      
 };
+//-----------------------------------------------log out-------------------------------------------------------------------
+exports.logout = function(req,res){
+   req.session.destroy(function(){
+      console.log("user logged out.")
+   });
+   res.redirect('/login');
+}        
 //-----------------------------------------------dashboard page functionality----------------------------------------------
-           
+
 exports.dashboard = function(req, res, next){
            
    var user =  req.session.user,

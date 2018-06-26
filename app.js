@@ -9,16 +9,17 @@ var express = require('express')
 //var methodOverride = require('method-override');
 var session = require('express-session');
 var app = express();
-var mysql      = require('mysql');
+var mysql = require('mysql');
 var bodyParser=require("body-parser");
+//var cookieParser = require('cookie-parser');
 var connection = mysql.createConnection({
             host     : 'localhost', 
-            user     : 'root',
-            password : '112',
+            user     : 'tkche870302',
+            password : 'Mq870955677765',
             database : 'test',
             //socketPath : '/tmp/mysql.sock'
             });
- connection.connect();
+connection.connect();
 connection.connect(function(err){
   if(err){
     console.log('Error connecting to Db');
@@ -39,9 +40,14 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(session({
               secret: 'keyboard cat',
               resave: false,
-              saveUninitialized: true,
+              saveUninitialized: false,
               cookie: { maxAge: 60000 }
             }))
+app.use(function(req, res, next) {
+  res.locals.login = req.session.login;
+  res.locals.user = req.session.user;
+  next();
+});
  
 // development only
  
@@ -50,8 +56,7 @@ app.get('/signup', user.signup);//call for signup page
 app.post('/signup', user.signup);//call for signup post 
 app.get('/login', user.login);//call for login page
 app.post('/login', user.login);//call for login post
-app.get('/logout', user.login);//call for logout page
-app.post('/logout', user.login);//call for logout post
+app.get('/logout', user.logout);//call for logout page
 app.get('/home/dashboard', user.dashboard);//call for dashboard page after login
 app.get('/home/logout', user.logout);//call for logout
 app.get('/home/profile',user.profile);//to render users profile
