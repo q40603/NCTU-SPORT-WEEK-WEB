@@ -59,13 +59,6 @@ exports.login = function(req, res){
       res.render('login.ejs',{message: message});
    }      
 };
-//-----------------------------------------------log out-------------------------------------------------------------------
-exports.logout = function(req,res){
-   req.session.destroy(function(){
-      console.log("user logged out.")
-   });
-   res.redirect('/');
-}        
 //-----------------------------------------------dashboard page functionality----------------------------------------------
 
 exports.dashboard = function(req, res, next){
@@ -117,7 +110,7 @@ exports.rule = function(req, res){
    
       var id= req.params.event_id;
       console.log(id); 
-      var sql="SELECT ename, rule, min_team_mem, max_team_mem FROM `event` WHERE `event_id`='"+id+"'";   
+      var sql="SELECT event_id,ename, rule, min_team_mem, max_team_mem FROM `event` WHERE `event_id`='"+id+"'";   
                            
       db.query(sql, function(err, results){    
          res.render('rule.ejs',{data:results});  
@@ -142,6 +135,18 @@ exports.anncs = function(req, res){
                            
       db.query(sql, function(err, results){    
          res.render('anncs.ejs',{data:results});  
+      });
+      
+}
+//------------------------------------------render registration-------------------------------------------
+exports.register = function(req, res){
+      
+      var id= req.params.event_id;
+      console.log(id); 
+      var sql="SELECT ename, min_team_mem, max_team_mem FROM `event` WHERE `event_id`='"+id+"'";   
+                           
+      db.query(sql, function(err, results){    
+         res.render('register.ejs',{data:results});  
       });
       
 }

@@ -6,7 +6,10 @@
                 <thead>
                   <tr>
                     <th>活動</th>
-                    <th>內容</th>
+                    <th>規則</th>
+                    <% if(login) {%>
+                    <th>報名</th>
+                    <% } %>
                   </tr>
                 </thead>
                 <tbody>
@@ -20,6 +23,9 @@
                     	<% } %>
                     </a>   
                 </td>
+                <% if(login) {%>
+                <td><button class="btn btn-info" onclick="window.location.href='/register/<%= data[i].event_id %>';" >報名</button></td>
+                <% }%>
             </tr>
           <% } %>
                 </tbody>
