@@ -240,15 +240,10 @@ exports.anncDelete = function(req, res){
 }
 //----------------------------------register status-----------------------------------------------
 exports.register_status=function(req,res){
-   var id = req.session.id;
-   if(id == null){
-      res.redirect("/login");
-      return;
-   }
-
-   var sql="SELECT * FROM `user` WHERE `id`='"+id+"'";
-   db.query(sql, function(err, results){
-      res.render('edit_profile.ejs',{data:results});
+   var sql = "SELECT max_team,ename, remain , event_id FROM `event`";
+   db.query(sql, function(err, result){  
+      console.log(result);
+      res.render('register_status.ejs',{data:result});
    });
 };
 //---------------------------------edit users details after login----------------------------------

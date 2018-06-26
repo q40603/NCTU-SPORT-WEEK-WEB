@@ -1,0 +1,34 @@
+<%- include header %>
+        <div id="announcelist" style="margin-top:0px;" class="mainbox col-md-4 col-sm-8">             
+            <div class="container">
+              <h2>活動報名狀況</h2>        
+              <table class="table" width="40">
+                <thead>
+                  <tr>
+                    <th>活動</th>
+                    <th>報名狀況</th>
+                  </tr>
+                </thead>
+                <tbody>
+          <% for(var i=0; i<data.length; i++) {%>
+            <tr>
+                <td><%= data[i].ename %></td>
+                <td> 
+        <% var length = 100*(1-data[i].remain / data[i].max_team) ; %>
+    	<p><%= data[i].max_team - data[i].remain %>隊報名</p>
+<div class="bs-example">
+    <div class="progress">
+        <div class="progress-bar" style="width: <%= length %>%;">
+            <span class="sr-only"><%= length %>% Complete</span>
+        </div>
+    </div>
+</div>   
+                </td>
+            </tr>
+          <% } %>
+                </tbody>
+              </table>
+            </div>            
+        </div>
+</div>
+ <%- include footer %>

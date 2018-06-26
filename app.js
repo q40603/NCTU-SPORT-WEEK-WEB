@@ -63,6 +63,7 @@ app.post('/anncs',user.index);
 app.get('/anncsadd',user.signup);
 app.get('/register/:event_id',user.register);
 app.post('/register/:event_id',user.register);
+app.get('/register_status',user.register_status);
 app.get('/anncs/:annc_id/delete', user.anncDelete);//to delete the announce with annc_id
 //Middleware
 app.listen(8080)
