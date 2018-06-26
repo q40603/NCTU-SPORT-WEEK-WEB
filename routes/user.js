@@ -201,8 +201,13 @@ exports.register = function(req, res){
             });            
          }
       });
-      
-
+      var sql5 = "UPDATE event set remain = remain -1 WHERE `event_id` = "+event_id;
+      console.log(sql5);
+         db.query(sql5, function(err, result){
+            if(!err){
+               console.log("good good");
+            }
+         });      
       if(req.session.valid_reg == true){
          var sql = "SELECT announce_id, year(announce_date) as year, month(announce_date) as month, day(announce_date) as day, title from `announce`";
          db.query(sql, function(err, result){
@@ -233,6 +238,19 @@ exports.anncDelete = function(req, res){
 
 
 }
+//----------------------------------register status-----------------------------------------------
+exports.register_status=function(req,res){
+   var id = req.session.id;
+   if(id == null){
+      res.redirect("/login");
+      return;
+   }
+
+   var sql="SELECT * FROM `user` WHERE `id`='"+id+"'";
+   db.query(sql, function(err, results){
+      res.render('edit_profile.ejs',{data:results});
+   });
+};
 //---------------------------------edit users details after login----------------------------------
 exports.editprofile=function(req,res){
    var id = req.session.id;
