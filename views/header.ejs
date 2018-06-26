@@ -15,12 +15,18 @@
                 <div class="navbar-brand" style="font-weight: bold; margin-top: 0px;">NCTU Sports</div>
                     <ul class="nav navbar-nav" style="margin-top: 5px;">
                     <li><a href="/">首頁</a></li>
-                    <li><a href="/events">活動報名</a></li>
+                    <% if(!login) {%>
+                    <li><a href="/events">活動列表</a></li>
+                    <% }else{%>
+                    <li><a href="/events_reg">活動報名</a></li>
+                    <% }%>
+
                     <% if(!login) {%>
                       <li><a href="/signup">註冊</a></li>
                     <% }else{%>
                       <li><a href="/register_status">報名狀況</a></li>
                     <% }%>
+
                     <% if(!login) {%>
                       <li><a href="/login">登入</a></li>
                     <% }else{%>

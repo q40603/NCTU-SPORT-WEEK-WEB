@@ -12,7 +12,7 @@
                 <tbody>
           <% for(var i=0; i<data.length; i++) {%>
             <tr>
-                <td><%= data[i].year %>/<%= data[i].month %>/<%= data[i].day %></td>
+                <td><%= data[i].year %>&ensp;/&ensp;<%= data[i].month %>&ensp;/&ensp;<%= data[i].day %></td>
                 <td> 
                     <a  href="/anncs/<%= data[i].announce_id %>" style="cursor: pointer"><%= data[i].title %></a>   
                 </td>

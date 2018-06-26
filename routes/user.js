@@ -64,7 +64,7 @@ exports.logout = function(req,res){
    req.session.destroy(function(){
       console.log("user logged out.")
    });
-   res.redirect('/login');
+   res.redirect('/');
 }        
 //-----------------------------------------------dashboard page functionality----------------------------------------------
 
