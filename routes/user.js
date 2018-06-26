@@ -140,14 +140,38 @@ exports.anncs = function(req, res){
 }
 //------------------------------------------render registration-------------------------------------------
 exports.register = function(req, res){
-      
+   if(req.method == "POST"){
+      var post  = req.body;
+      console.log(post);
+      res.redirect('/');
+      /*var uid= post.uid;
+      var pass= post.password;
+     console.log(pass);
+      var sql="SELECT uid, password, uname FROM `user` WHERE `uid`='"+uid+"' and password = '"+pass+"'";                         
+      db.query(sql, function(err, results){    
+          console.log(results[0]);
+         if(results.length){
+            req.session.login = true;
+            req.session.uid = results[0].uid;
+            req.session.user = results[0];
+            console.log(results[0].uid);
+            res.redirect('/');
+         }
+         else{
+            message = '帳號或密碼輸入錯誤';
+            res.render('login.ejs',{message: message});
+         }
+                 
+      });*/
+   } 
+   else {
       var id= req.params.event_id;
       console.log(id); 
-      var sql="SELECT ename, min_team_mem, max_team_mem FROM `event` WHERE `event_id`='"+id+"'";   
-                           
+      var sql="SELECT event_id, ename, min_team_mem, max_team_mem FROM `event` WHERE `event_id`='"+id+"'";   
       db.query(sql, function(err, results){    
          res.render('register.ejs',{data:results});  
       });
+   }       
       
 }
 //---------------------------------------------Delete annc-----------------------------------------------
