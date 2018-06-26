@@ -1,15 +1,29 @@
 <%- include header %>
-<div class="container">
-	<div class="row">
-		<div class="col-lg-offset-1"><h2>活動列表</h2></div>
-		<hr/>
-    		<div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xs-offset-0 col-sm-offset-0 col-md-offset-3 col-lg-offset-3 toppad" >		
-	    <div class="panel panel-info">
-	        <ul class="list-group">
-	        <% for(var i=0; i<data.length; i++) {%>
-	        	<li class="list-group-item"><%= data[i].ename %><span class="badge"><%= data[i].remain %></li>
-	        <% } %>
-	        </ul>
-	    </div>
-	</div>
+        <div id="announcelist" style="margin-top:0px;" class="mainbox col-md-6 col-sm-8">             
+            <div class="container">
+              <h2>活動列表</h2>        
+              <table class="table" width="40">
+                <thead>
+                  <tr>
+                    <th>活動</th>
+                    <th>內容</th>
+                  </tr>
+                </thead>
+                <tbody>
+          <% for(var i=0; i<data.length; i++) {%>
+            <tr>
+                <td><%= data[i].ename %></td>
+                <td> 
+                    <a  href="/rule/<%= data[i].event_id %>" style="cursor: pointer">
+                    	<% for(var j=0; j<10; j++) {%>
+                    		<%= data[i].rule[j] %>
+                    	<% } %>
+                    </a>   
+                </td>
+            </tr>
+          <% } %>
+                </tbody>
+              </table>
+            </div>            
+        </div>
 <%- include footer %>

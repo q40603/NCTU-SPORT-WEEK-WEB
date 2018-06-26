@@ -106,11 +106,25 @@ exports.profile = function(req, res){
 };
 //---------------------------------render event list-----------------------------------------------
 exports.events = function(req, res){
-   var sql = "SELECT ename, remain FROM `event`";
+   var sql = "SELECT ename,rule , event_id FROM `event`";
    db.query(sql, function(err, result){  
+      console.log(result);
       res.render('events.ejs',{data:result});
    });   
 }
+//--------------------------------render rule-----------------------------------------------
+exports.rule = function(req, res){
+   
+      var id= req.params.event_id;
+      console.log(id); 
+      var sql="SELECT ename, rule, min_team_mem, max_team_mem FROM `event` WHERE `event_id`='"+id+"'";   
+                           
+      db.query(sql, function(err, results){    
+         res.render('rule.ejs',{data:results});  
+      });
+      
+}
+
 //---------------------------------render announce title-------------------------------------------
 exports.index = function(req, res){
    var sql = "SELECT announce_id, year(announce_date) as year, month(announce_date) as month, day(announce_date) as day, title from `announce`";

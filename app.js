@@ -20,14 +20,6 @@ var connection = mysql.createConnection({
             //socketPath : '/tmp/mysql.sock'
             });
 connection.connect();
-connection.connect(function(err){
-  if(err){
-    console.log('Error connecting to Db');
-    return;
-  }
-  console.log('Connection established');
-});
-
 global.db = connection;
  
 // all environments
@@ -62,6 +54,7 @@ app.get('/home/logout', user.logout);//call for logout
 app.get('/home/profile',user.profile);//to render users profile
 app.get('/events',user.events);//to render eventlist
 app.get('/anncs/:annc_id',user.anncs);//to render eventlist
+app.get('/rule/:event_id',user.rule); //to render event's rule
 app.post('/anncs',user.index);
 app.get('/anncsadd',user.signup);
 app.get('/anncs/:annc_id/delete', user.anncDelete);//to delete the announce with annc_id
