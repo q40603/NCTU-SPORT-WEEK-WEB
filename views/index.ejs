@@ -1,4 +1,7 @@
 <%- include header %>
+                        <% if (message.length > 0) { %>
+                            <div class="alert alert-danger col-sm-12"><%= message %></div>
+                        <% } %>
         <div id="announcelist" style="margin-top:0px;" class="mainbox col-md-6 col-sm-8">             
             <div class="container">
               <h2>最新公告</h2>        

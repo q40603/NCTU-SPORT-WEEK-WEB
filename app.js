@@ -8,6 +8,7 @@ var express = require('express')
   , path = require('path');
 //var methodOverride = require('method-override');
 var session = require('express-session');
+var flash = require('connect-flash');
 var app = express();
 var mysql = require('mysql');
 var bodyParser=require("body-parser");
@@ -16,7 +17,7 @@ var connection = mysql.createConnection({
             host     : 'localhost', 
             user     : 'tkche870302',
             password : 'Mq870955677765',
-            database : 'test',
+            database : 'test'
             //socketPath : '/tmp/mysql.sock'
             });
 connection.connect();
@@ -27,6 +28,8 @@ app.set('port', process.env.PORT || 8080);
 app.set('views', __dirname + '/views');
 app.set('view engine', 'ejs');
 app.use(bodyParser.urlencoded({ extended: false }));
+app.use(flash());
+//app.use(flash(app));
 app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(session({
@@ -38,6 +41,7 @@ app.use(session({
 app.use(function(req, res, next) {
   res.locals.login = req.session.login;
   res.locals.user = req.session.user;
+  res.locals.valid_reg = req.session.valid_reg;
   next();
 });
  
