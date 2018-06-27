@@ -17,15 +17,22 @@ exports.signup = function(req, res){
       var sql = "INSERT INTO `test`.`user` (`uid`, `dcid`, `uname`, `gender`, `email`, `phone_num`, `password`, `grade`) VALUES ('" + uid + "','"+ department +"','" + uname + "','" + gender + "','" + email + "','" + phone_num + "','" + pass + "','" + grade + "');"
 
       var query = db.query(sql, function(err, result) {
-         console.log(result)
-         message = "Succesfully! Your account has been created.";
-         res.render('signup.ejs',{message: message});
+         if(err){
+            console.log("有夠分");
+            res.render('signup.ejs',{message: "註冊失敗 請確認該用戶是否已存在"});
+         }
+         else{
+            message = "Succesfully! Your account has been created.";
+            res.render('signup.ejs',{message: message});            
+         }
       });
-
    } 
-   else {
-
-      res.render('signup');
+   else{
+      var sql="SELECT uid FROM `user`";
+      db.query(sql, function(err, results){
+         console.log(results);
+         res.render('signup.ejs', {data:results, message: message});    
+      });      
    }
 };
  
