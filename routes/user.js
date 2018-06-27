@@ -145,8 +145,13 @@ exports.anncs = function(req, res){
       console.log(id); 
       var sql="SELECT title, content, announce_date FROM `announce` WHERE `announce_id`='"+id+"'";   
                            
-      db.query(sql, function(err, results){    
-         res.render('anncs.ejs',{data:results});  
+      db.query(sql, function(err, results){   
+         if(results.length){
+            res.render('anncs.ejs',{data:results});
+         }
+         else{
+            res.render('anncadd.ejs');
+         }   
       });
       
 }
@@ -268,4 +273,30 @@ exports.editprofile=function(req,res){
    db.query(sql, function(err, results){
       res.render('edit_profile.ejs',{data:results});
    });
+};
+
+//-----------------------------------add announcement-----------------------------------------------
+
+exports.anncadd=function(req,res){
+
+   if(req.method == "POST"){
+      var post  = req.body;
+      console.log(post);
+      var title = post.title;
+      var content = post.content;
+      var sql = "INSERT INTO `announce` (`announce_date`,`title`,`content`) VALUES (NOW(),'"+title+"','"+content+"');";
+      db.query(sql, function(err, results){
+         if(!err){
+            res.redirect('/');
+         }
+         
+      }); 
+   }
+   else{
+      var sql = "SELECT * FROM `announce`";
+      db.query(sql, function(err, results){
+         res.render('anncadd.ejs',{data: results});
+      });      
+   }
+   
 };

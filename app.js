@@ -60,10 +60,11 @@ app.get('/home/profile',user.profile);//to render users profile
 app.get('/events',user.events);//to render eventlist
 app.get('/anncs/:annc_id',user.anncs);//to render eventlist
 app.get('/rule/:event_id',user.rule); //to render event's rule
-app.post('/anncs',user.index);
 app.get('/register/:event_id',user.register);
 app.post('/register/:event_id',user.register);
 app.get('/register_status',user.register_status);
 app.get('/anncs/delete/:annc_id', user.anncDelete);//to delete the announce with annc_id
+app.get('/anncs/add', user.anncadd);
+app.post('/anncs/add', user.anncadd);
 //Middleware
 app.listen(8080)
