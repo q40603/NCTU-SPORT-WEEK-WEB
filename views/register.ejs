@@ -30,13 +30,23 @@
                                 	</div>
                                 </div>
                                 <% for(var i=1; i<data[0].max_team_mem; i++) {%>
-	                                <div class="form-group">
-	                                    <label class="col-md-3 control-label">組員<%= i %>學號</label>
-	                                    <div class="col-md-9">
-	                                        <input type="text" class="form-control" name="uid" placeholder="id">
-	                                        <input type="hidden" name="leader" value= 0>
-	                                	</div>
-	                                </div>
+                                	<% if(i < data[0].min_team_mem){%>
+	 	                                <div class="form-group">
+		                                    <label class="col-md-3 control-label">組員<%= i %>學號</label>
+		                                    <div class="col-md-9">
+		                                        <input type="text" class="form-control" name="uid" placeholder="id" required>
+		                                        <input type="hidden" name="leader" value= 0>
+		                                	</div>
+		                                </div> 
+		                             <% }else{%>                            		 
+		                                <div class="form-group">
+		                                    <label class="col-md-3 control-label">組員<%= i %>學號</label>
+		                                    <div class="col-md-9">
+		                                        <input type="text" class="form-control" name="uid" placeholder="id">
+		                                        <input type="hidden" name="leader" value= 0>
+		                                	</div>
+		                                </div>
+	                                <% }%>
 								<% } %>
                                 <div class="form-group">
                                     <!-- Button -->                                       
