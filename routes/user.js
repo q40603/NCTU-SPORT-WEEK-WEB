@@ -18,7 +18,6 @@ exports.signup = function(req, res){
 
       var query = db.query(sql, function(err, result) {
          if(err){
-            console.log("有夠分");
             res.render('signup.ejs',{message: "註冊失敗 請確認該用戶是否已存在"});
          }
          else{
@@ -45,10 +44,14 @@ exports.login = function(req, res){
       var uid= post.uid;
       var pass= post.password;
      console.log(pass);
-      var sql="SELECT uid, password, uname FROM `user` WHERE `uid`='"+uid+"' and password = '"+pass+"'";                         
+      var sql="SELECT admin, uid, password, uname FROM `user` WHERE `uid`='"+uid+"' and password = '"+pass+"'";                         
       db.query(sql, function(err, results){    
           console.log(results[0]);
          if(results.length){
+            req.session.admin = false;
+            if(results[0].admin == 1){
+               req.session.admin = true;
+            }
             req.session.login = true;
             req.session.valid_reg= true;
             req.session.uid = results[0].uid;

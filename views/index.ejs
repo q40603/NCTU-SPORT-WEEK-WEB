@@ -9,7 +9,10 @@
                 <thead>
                   <tr>
                     <th>日期</th>
-                    <th>活動</th>
+                    <th>公告</th>
+                    <% if(admin) {%>
+                      <th>刪除</th>
+                    <% } %>
                   </tr>
                 </thead>
                 <tbody>
@@ -19,6 +22,9 @@
                 <td> 
                     <a  href="/anncs/<%= data[i].announce_id %>" style="cursor: pointer"><%= data[i].title %></a>   
                 </td>
+                <% if(admin) {%>
+                <td><button class="btn btn-info" onclick="window.location.href='/anncs/delete/<%= data[i].event_id %>';" >刪除</button></td>
+                <% }%> 
             </tr>
           <% } %>
                 </tbody>

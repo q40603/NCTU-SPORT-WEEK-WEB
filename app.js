@@ -42,6 +42,7 @@ app.use(function(req, res, next) {
   res.locals.login = req.session.login;
   res.locals.user = req.session.user;
   res.locals.valid_reg = req.session.valid_reg;
+  res.locals.admin = req.session.admin;
   next();
 });
  
