@@ -2,7 +2,10 @@
 
         <div id="announcelist" style="margin-top:0px;" class="mainbox col-md-6 col-sm-8">             
             <div class="container">
-              <h2>活動列表</h2>        
+              <h2>活動列表</h2>   
+                <% if(admin) {%>
+                <td><button class="btn btn-info" onclick="window.location.href='/events/add';" >新增活動</button></td>
+                <% }%>      
               <table class="table" width="40">
                 <thead>
                   <tr>
@@ -10,6 +13,9 @@
                     <th>規則</th>
                     <% if(login) {%>
                     <th>報名</th>
+                    <% } %>
+                   <% if(admin) {%>
+                    <th>操作</th>
                     <% } %>
                   </tr>
                 </thead>
@@ -25,7 +31,12 @@
                     </a>   
                 </td>
                 <% if(login) {%>
-                <td><button class="btn btn-info" onclick="window.location.href='/register/<%= data[i].event_id %>';" >報名</button></td>
+                <td ><button class="btn btn-info"  onclick="window.location.href='/register/<%= data[i].event_id %>';" >報名</button></td>
+                <% }%>
+                <% if(admin) {%>
+                <td style="width: 50Px;"><button class="btn btn-info" onclick=" if(sure_delete_annc()) window.location.href='/events/delete/<%= data[i].event_id %>';" >移除</button></td>
+                <td style="width: 50Px;"><button class="btn btn-info" onclick="window.location.href='/events/status/<%= data[i].event_id %>';" >報名狀況</button></td>
+                <td style="width: 50Px;"><button class="btn btn-info" onclick="window.location.href='/events/edit/<%= data[i].event_id %>';" >修改</button></td>
                 <% }%>
             </tr>
           <% } %>

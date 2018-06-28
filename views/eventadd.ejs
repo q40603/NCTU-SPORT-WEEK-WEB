@@ -1,0 +1,39 @@
+<%- include header %>
+<% if(admin) {%>
+	<form class="form-horizontal" role="form" method="post" action="/events/add" onSubmit="return checkblank(this);">
+		<div class="input-group input-group-lg">
+		    <h3>活動名稱</h3>
+		    <input type="text" name="ename" style="font-size:18pt;width:500px;">
+		</div>
+		<div class="input-group input-group-lg">
+		    <h3>活動日期</h3>
+		    <input type="text" name="event_date" style="font-size:18pt;width:500px;">
+		</div>
+		<div class="input-group input-group-lg">
+		    <h3>隊伍限制</h3>
+		    <input type="text" name="max_team" style="font-size:18pt;width:500px;">
+		</div>
+		<div class="input-group input-group-lg">
+		    <h3>每隊人數上限</h3>
+		    <input type="text" name="max_team_mem" style="font-size:18pt;width:500px;">
+		</div>
+		<div class="input-group input-group-lg">
+		    <h3>每隊人數下限</h3>
+		    <input type="text" name="min_team_mem" style="font-size:18pt;width:500px;">
+		</div>
+		<div class="input-group input-group-lg">
+		    <h3>規則</h3>
+		    <textarea type="text" name="rule" style="font-size:18pt;height:420px;width:500px;"></textarea>
+		</div>
+	    <div class="col-md-offset-0 col-md-9">
+	        <button id="btn-register" type="" class="btn btn-info"><i class="icon-hand-right"></i> &nbsp 發布</button>
+	    </div>
+
+	</form>
+	    <div class="col-md-offset-3 col-md-9">
+	        <button id="btn-register" method = "get" onclick="window.location.href='/anncs/add';" class="btn btn-info"><i class="icon-hand-right"></i> &nbsp 取消</button>
+	    </div>
+<% }else{%>
+	<h1>你沒有權限瀏覽此頁</h1>
+<% }%>
+<%- include footer %>

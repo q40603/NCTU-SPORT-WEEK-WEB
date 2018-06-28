@@ -250,17 +250,32 @@ exports.anncDelete = function(req, res){
       db.query(sql, function(err,results){
          res.redirect("/");
       });
+}
+//---------------------------------------delete event---------------------------------------------
+exports.eventDelete = function(req, res){
 
+      var id = req.params.event_id;
+      var sql = "Delete FROM `event` WHERE `event_id`='"+id+"'";
 
+      db.query(sql, function(err,results){
+         res.redirect("/events");
+      });
 }
 //----------------------------------register status-----------------------------------------------
-exports.register_status=function(req,res){
+exports.status=function(req,res){
    var sql = "SELECT max_team,ename, remain , event_id FROM `event`";
    db.query(sql, function(err, result){  
       console.log(result);
-      res.render('register_status.ejs',{data:result});
+      res.render('status.ejs',{data:result});
    });
 };
+/*exports.id_status=function(req,res){
+   var sql = "SELECT max_team,ename, remain , event_id FROM `event`";
+   db.query(sql, function(err, result){  
+      console.log(result);
+      res.render('status.ejs',{data:result});
+   });
+};*/
 //---------------------------------edit users details after login----------------------------------
 exports.editprofile=function(req,res){
    var id = req.session.id;
@@ -278,7 +293,6 @@ exports.editprofile=function(req,res){
 //-----------------------------------add announcement-----------------------------------------------
 
 exports.anncadd=function(req,res){
-
    if(req.method == "POST"){
       var post  = req.body;
       console.log(post);
@@ -298,5 +312,33 @@ exports.anncadd=function(req,res){
          res.render('anncadd.ejs',{data: results});
       });      
    }
-   
+};
+//--------------------------------------add event-------------------------------------------------------
+exports.eventadd=function(req,res){
+   if(req.method == "POST"){
+      var post  = req.body;
+      console.log(post);
+      var ename = post.ename;
+      var event_date = post.event_date;
+      var max_team = post.max_team;
+      var max_team_mem = post.max_team_mem ;
+      var min_team_mem = post.min_team_mem ;
+      var rule = post.rule ;
+      var sql = "INSERT INTO `event` (`ename`,`max_team`,`min_team_mem`,`max_team_mem`,`remain`,`rule`,`event_date`) VALUES ('"+ename+"','"+max_team+"','"+min_team_mem+"','"+max_team_mem+"','"+max_team+"','"+rule+"','"+event_date+"');";
+      db.query(sql, function(err, results){
+         if(!err){
+            res.redirect('/events');
+         }
+         else{
+            console.log("err");
+            res.redirect('/events');
+         }
+      }); 
+   }
+   else{
+      var sql = "SELECT * FROM `event`";
+      db.query(sql, function(err, results){
+         res.render('eventadd.ejs',{data: results});
+      });      
+   }
 };

@@ -13,8 +13,8 @@
   <div class="container">
     <!-- Static navbar -->
             <div>
-              <nav class="navbarstyle navbar navbar-expand-md navbar-custom bg-light" style="">
-                <div class="navbar-brand" style="font-weight: bold; margin-top: 0px;">NCTU Sports</div>
+              <nav class="navbarstyle navbar navbar-expand-md navbar-custom bg-light" style="padding-left:130px;  background: #16a085; color: white;"  >
+                <div class="navbar-brand" style="font-weight: bold; margin-top: 0px; color: white;">NCTU Sports</div>
                     <ul class="nav navbar-nav" style="margin-top: 5px;">
                     <li><a href="/">首頁</a></li>
                     <% if(!login) {%>
@@ -26,7 +26,7 @@
                     <% if(!login) {%>
                       <li><a href="/signup">註冊</a></li>
                     <% }else{%>
-                      <li><a href="/register_status">報名狀況</a></li>
+                      <li><a href="/events/status">報名狀況</a></li>
                     <% }%>
 
                     <% if(!login) {%>

@@ -62,8 +62,12 @@ app.get('/anncs/:annc_id',user.anncs);//to render eventlist
 app.get('/rule/:event_id',user.rule); //to render event's rule
 app.get('/register/:event_id',user.register);
 app.post('/register/:event_id',user.register);
-app.get('/register_status',user.register_status);
+app.get('/events/status',user.status);
+//app.get('/events/status/:event_id',user.id_status);
 app.get('/anncs/delete/:annc_id', user.anncDelete);//to delete the announce with annc_id
+app.get('/events/delete/:event_id', user.eventDelete);//to delete the announce with annc_id
+app.get('/events/add', user.eventadd);
+app.post('/events/add', user.eventadd);
 app.get('/anncs/add', user.anncadd);
 app.post('/anncs/add', user.anncadd);
 //Middleware
