@@ -12,7 +12,7 @@
                 <tbody>
           <% for(var i=0; i<data.length; i++) {%>
             <tr>
-                <td><%= data[i].ename %></td>
+                <td><a  href="/events/status/<%= data[i].event_id %>" style="cursor: pointer"><%= data[i].ename %></a></td>
                 <td> 
         <% var length = 100*(data[i].remain / data[i].max_team) ; %>
     	<p><%= data[i].remain %>隊報名</p>

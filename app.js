@@ -12,6 +12,7 @@ var flash = require('connect-flash');
 var app = express();
 var mysql = require('mysql');
 var bodyParser=require("body-parser");
+
 //var cookieParser = require('cookie-parser');
 var connection = mysql.createConnection({
             host     : 'localhost', 
@@ -36,7 +37,7 @@ app.use(session({
               secret: 'keyboard cat',
               resave: false,
               saveUninitialized: false,
-              cookie: { maxAge: 60000 }
+              cookie: { maxAge: 60000*60 }
             }))
 app.use(function(req, res, next) {
   res.locals.login = req.session.login;
@@ -63,6 +64,8 @@ app.get('/rule/:event_id',user.rule); //to render event's rule
 app.get('/register/:event_id',user.register);
 app.post('/register/:event_id',user.register);
 app.get('/events/status',user.status);
+app.get('/events/status/:event_id',user.eventstatus);
+//app.get('/events/status/:event_id',user.event_status);
 //app.get('/events/status/:event_id',user.id_status);
 app.get('/anncs/delete/:annc_id', user.anncDelete);//to delete the announce with annc_id
 app.get('/events/delete/:event_id', user.eventDelete);//to delete the announce with annc_id

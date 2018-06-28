@@ -1,4 +1,20 @@
+var crypto = require("crypto");
+function encrypt(key, data) {
+        var cipher = crypto.createCipher('aes-256-cbc', key);
+        var crypted = cipher.update(data, 'utf-8', 'hex');
+        crypted += cipher.final('hex');
 
+        return crypted;
+}
+
+function decrypt(key, data) {
+        var decipher = crypto.createDecipher('aes-256-cbc', key);
+        var decrypted = decipher.update(data, 'hex', 'utf-8');
+        decrypted += decipher.final('utf-8');
+
+        return decrypted;
+}
+var key = "seven" ;
 //---------------------------------------------signup page call------------------------------------------------------
 exports.signup = function(req, res){
    
@@ -9,10 +25,11 @@ exports.signup = function(req, res){
       var uid= post.uid;
       var email= post.email;
       var phone_num= post.phone_num;
-      var pass= post.password;
+      var pass= encrypt(key, post.password);
       var department = post.department;
       var gender = post.gender;
       var grade = post.grade;
+
       console.log(post);
       var sql = "INSERT INTO `test`.`user` (`uid`, `dcid`, `uname`, `gender`, `email`, `phone_num`, `password`, `grade`) VALUES ('" + uid + "','"+ department +"','" + uname + "','" + gender + "','" + email + "','" + phone_num + "','" + pass + "','" + grade + "');"
 
@@ -42,7 +59,8 @@ exports.login = function(req, res){
    if(req.method == "POST"){
       var post  = req.body;
       var uid= post.uid;
-      var pass= post.password;
+      var pass= encrypt(key, post.password);
+
      console.log(pass);
       var sql="SELECT admin, uid, password, uname FROM `user` WHERE `uid`='"+uid+"' and password = '"+pass+"'";                         
       db.query(sql, function(err, results){    
@@ -261,7 +279,7 @@ exports.eventDelete = function(req, res){
          res.redirect("/events");
       });
 }
-//----------------------------------register status-----------------------------------------------
+//----------------------------------ALL EVENT  status-----------------------------------------------
 exports.status=function(req,res){
    var sql = "SELECT max_team,ename, remain , event_id FROM `event`";
    db.query(sql, function(err, result){  
@@ -269,14 +287,19 @@ exports.status=function(req,res){
       res.render('status.ejs',{data:result});
    });
 };
-/*exports.id_status=function(req,res){
-   var sql = "SELECT max_team,ename, remain , event_id FROM `event`";
+//-----------------------------------SPECIFIED event status-----------------------------------------------
+exports.eventstatus=function(req,res){
+   console.log("specified status");
+   var id = req.params.event_id;
+   var sql = "select t.team_mem,u.uname,t.team_id,t.team_name , tt.uid , r.event_id,e.ename from team t inner join register r on r.team_id= t.team_id inner join event e on e.event_id = r.event_id inner join teammem tt on tt.team_id = t.team_id inner join user u on tt.uid = u.uid where r.event_id= '"+id+"';";
+
    db.query(sql, function(err, result){  
+      console.log("specified status");
       console.log(result);
-      res.render('status.ejs',{data:result});
+      res.render('eventstatus.ejs',{data:result});
    });
-};*/
-//---------------------------------edit users details after login----------------------------------
+};
+//-----------------------------edit users details after login----------------------------------
 exports.editprofile=function(req,res){
    var id = req.session.id;
    if(id == null){
