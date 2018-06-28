@@ -20,3 +20,14 @@ function sure_delete_annc(){
         return false;
     }
 }
+function event_available(data1,data2){
+    console.log(data1);
+    console.log(data2);
+    if(data1<data2){
+        return true;
+    }
+    else{
+        alert("報名額滿");
+        return false;
+    }
+}

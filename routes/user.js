@@ -110,7 +110,7 @@ exports.profile = function(req, res){
 };
 //---------------------------------render event list-----------------------------------------------
 exports.events = function(req, res){
-   var sql = "SELECT ename,rule , event_id FROM `event`";
+   var sql = "SELECT max_team, remain, ename,rule , event_id FROM `event`";
    db.query(sql, function(err, result){  
       console.log(result);
       res.render('events.ejs',{data:result});

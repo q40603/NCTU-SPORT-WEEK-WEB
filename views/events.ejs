@@ -21,8 +21,11 @@
                 </thead>
                 <tbody>
           <% for(var i=0; i<data.length; i++) {%>
+
             <tr>
-                <td><%= data[i].ename %></td>
+
+                <td><%= data[i].ename %> </td>
+
                 <td> 
                     <a  href="/rule/<%= data[i].event_id %>" style="cursor: pointer">
                     	<% for(var j=0; j<10; j++) {%>
@@ -31,7 +34,7 @@
                     </a>   
                 </td>
                 <% if(login) {%>
-                <td ><button class="btn btn-info"  onclick="window.location.href='/register/<%= data[i].event_id %>';" >報名</button></td>
+                <td ><button class="btn btn-info"  onclick=" if(event_available('<%= data[i].remain %>','<%=data[i].max_team %>')) window.location.href='/register/<%= data[i].event_id %>';" >報名</button></td>
                 <% }%>
                 <% if(admin) {%>
                 <td style="width: 50Px;"><button class="btn btn-info" onclick=" if(sure_delete_annc()) window.location.href='/events/delete/<%= data[i].event_id %>';" >移除</button></td>

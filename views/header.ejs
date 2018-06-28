@@ -4,9 +4,10 @@
     <title>Sport week</title>
     <link rel='stylesheet' href='/stylesheets/style.css' />
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css"/>
-    <link rel="stylesheet" type="text/css" href="./navbar.css">
+    <link rel="stylesheet" type="text/css" href="/navbar.css">
    <script src="https://code.jquery.com/jquery-2.2.0.min.js"></script>
-   <script src="alert.js"></script>
+   <script src="/alert.js"></script>
+   <base href="/">
 </head>
 <body>
 
@@ -25,10 +26,10 @@
 
                     <% if(!login) {%>
                       <li><a href="/signup">註冊</a></li>
-                    <% }else{%>
+                    <% }%>
+                    <% if(admin) {%>
                       <li><a href="/events/status">報名狀況</a></li>
                     <% }%>
-
                     <% if(!login) {%>
                       <li><a href="/login">登入</a></li>
                     <% }else{%>
