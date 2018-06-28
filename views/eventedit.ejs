@@ -1,13 +1,13 @@
 <%- include header %>
 <% if(admin) {%>
-	<form class="form-horizontal" role="form" method="post" action="/events/edit" onSubmit="return checkblank(this);">
+	<form class="form-horizontal" role="form" method="post" action="/events/edit/<%=data[0].event_id %>" onSubmit="return checkblank(this);">
 		<div class="input-group input-group-lg">
 		    <h3>活動名稱</h3>
 		    <input type="text" name="ename" value="<%=data[0].ename %>" style="font-size:18pt;width:500px;">
 		</div>
 		<div class="input-group input-group-lg">
 		    <h3>活動日期</h3>
-		    <input type="text" name="event_date" value="<%=data[0].event_date %>" style="font-size:18pt;width:500px;">
+		    <input type="text" name="event_date" value="<%= data[0].year %>-<%= data[0].month %>-<%= data[0].day %>" style="font-size:18pt;width:500px;">
 		</div>
 		<div class="input-group input-group-lg">
 		    <h3>隊伍限制</h3>
@@ -23,8 +23,7 @@
 		</div>
 		<div class="input-group input-group-lg">
 		    <h3>規則</h3>
-		    <textarea type="text" name="rule" style="font-size:18pt;height:420px;width:500px;">
-		    	<%=data[0].rule %>
+		    <textarea type="text" name="rule" style="font-size:18pt;height:420px;width:500px;"><%=data[0].rule %>
 		    </textarea>
 		</div>
 	    <div class="col-md-offset-0 col-md-9">

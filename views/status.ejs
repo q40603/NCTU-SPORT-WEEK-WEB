@@ -14,8 +14,8 @@
             <tr>
                 <td><%= data[i].ename %></td>
                 <td> 
-        <% var length = 100*(1-data[i].remain / data[i].max_team) ; %>
-    	<p><%= data[i].max_team - data[i].remain %>隊報名</p>
+        <% var length = 100*(data[i].remain / data[i].max_team) ; %>
+    	<p><%= data[i].remain %>隊報名</p>
 <div class="bs-example">
     <div class="progress">
         <div class="progress-bar" style="width: <%= length %>%;">
