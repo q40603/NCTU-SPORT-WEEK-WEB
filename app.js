@@ -66,8 +66,13 @@ app.get('/events/status',user.status);
 //app.get('/events/status/:event_id',user.id_status);
 app.get('/anncs/delete/:annc_id', user.anncDelete);//to delete the announce with annc_id
 app.get('/events/delete/:event_id', user.eventDelete);//to delete the announce with annc_id
+
 app.get('/events/add', user.eventadd);
 app.post('/events/add', user.eventadd);
+
+app.get('/events/edit/:event_id', user.eventedit);
+app.post('/events/edit/:event_id', user.eventedit);
+
 app.get('/anncs/add', user.anncadd);
 app.post('/anncs/add', user.anncadd);
 //Middleware

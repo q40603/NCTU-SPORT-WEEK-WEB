@@ -342,3 +342,44 @@ exports.eventadd=function(req,res){
       });      
    }
 };
+
+//----------------------------------------------event edit------------------------------------------------------
+exports.eventedit=function(req,res){
+   if(req.method == "POST"){
+      var post  = req.body;
+      console.log(post);
+      var ename = post.ename;
+      var event_date = post.event_date;
+      var max_team = post.max_team;
+      var max_team_mem = post.max_team_mem ;
+      var min_team_mem = post.min_team_mem ;
+      var rule = post.rule ;
+      var sql = "UPDATE `event` set (`ename`,`max_team`,`min_team_mem`,`max_team_mem`,`remain`,`rule`,`event_date`) VALUES ('"+ename+"','"+max_team+"','"+min_team_mem+"','"+max_team_mem+"','"+max_team+"','"+rule+"','"+event_date+"');";
+      db.query(sql, function(err, results){
+         if(!err){
+            res.redirect('/events');
+         }
+         else{
+            console.log("err");
+            res.redirect('/events');
+         }
+      }); 
+   }
+   else{
+      var event_id = req.params.event_id;
+      console.log("hhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh");
+      console.log(event_id);
+      var sql = "SELECT * FROM event ";
+      db.query(sql, function(err, results){
+         if(!err){
+            console.log(results[0].rule);
+            res.render('eventedit.ejs',{data: results});            
+         }
+         if(err){
+            console.log("errrrrrrr");
+            res.redirect('/events');
+         }
+
+      });      
+   }
+};
