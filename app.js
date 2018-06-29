@@ -65,8 +65,8 @@ app.get('/register/:event_id',user.register);
 app.post('/register/:event_id',user.register);
 app.get('/events/status',user.status);
 app.get('/events/status/:event_id',user.eventstatus);
-//app.get('/events/status/:event_id',user.event_status);
-//app.get('/events/status/:event_id',user.id_status);
+
+app.get('/register/delete/:event_id',user.cancle);
 app.get('/anncs/delete/:annc_id', user.anncDelete);//to delete the announce with annc_id
 app.get('/events/delete/:event_id', user.eventDelete);//to delete the announce with annc_id
 

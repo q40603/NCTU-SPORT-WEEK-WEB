@@ -1,4 +1,9 @@
 <%- include header %>
+                                 <% if (message == "is leader") { %>
+                                    <div class="alert alert-success col-sm-12">成功取消報名</div>
+                                <% }else if(message == "not leader"){%>
+                                    <div class="alert alert-success col-sm-12">非組長不得取消報名 或是 尚未報名</div>
+                                <% } %>       
 
         <div id="announcelist" style="margin-top:0px;" class="mainbox col-md-6 col-sm-8">             
             <div class="container">
@@ -13,6 +18,7 @@
                     <th>規則</th>
                     <% if(login) {%>
                     <th>報名</th>
+                    <th>取消報名</th>
                     <% } %>
                    <% if(admin) {%>
                     <th>操作</th>
@@ -34,7 +40,8 @@
                     </a>   
                 </td>
                 <% if(login) {%>
-                <td ><button class="btn btn-info"  onclick=" if(event_available('<%= data[i].remain %>','<%=data[i].max_team %>')) window.location.href='/register/<%= data[i].event_id %>';" >報名</button></td>
+                <td ><button class="btn btn-info"  onclick=" if(event_available('<%= data[i].remain %>','<%=data[i].max_team %>','<%= admin %>')) window.location.href='/register/<%= data[i].event_id %>';" >報名</button></td>
+                <td ><button class="btn btn-info"  onclick="if('<%= admin %>') window.location.href='/register/delete/<%= data[i].event_id %>';" >取消報名</button></td>
                 <% }%>
                 <% if(admin) {%>
                 <td style="width: 50Px;"><button class="btn btn-info" onclick=" if(sure_delete_annc()) window.location.href='/events/delete/<%= data[i].event_id %>';" >移除</button></td>

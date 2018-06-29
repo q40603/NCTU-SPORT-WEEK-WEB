@@ -1,4 +1,12 @@
 <%- include header %>
+<head>
+<script>
+function myFunction(){
+    var x=document.getElementById("login-username");
+    x.value=x.value.toUpperCase();
+}
+</script>
+</head>
         <div id="loginbox" style="margin-top:50px;" class="mainbox col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">                   
             <div class="panel panel-info" >
                     <div class="panel-heading">
@@ -14,9 +22,8 @@
                         <form id="loginform" class="form-horizontal" role="form" method="post" action="/login">
                             <div style="margin-bottom: 25px" class="input-group">
                                         <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-                                        <input id="login-username" type="text" class="form-control" name="uid" value="" placeholder="id">                                       
+                                        <input id="login-username" type="text" class="form-control" name="uid" value="" placeholder="id" >                                       
                                     </div>
-                               
                             <div style="margin-bottom: 25px" class="input-group">
                                         <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
                                         <input id="login-password" type="password" class="form-control" name="password" placeholder="password">

@@ -20,10 +20,16 @@ function sure_delete_annc(){
         return false;
     }
 }
-function event_available(data1,data2){
+function event_available(data1,data2,admin){
     console.log(data1);
     console.log(data2);
+    console.log(admin);
+    if(admin == 'true'){
+        alert("哈囉 管理員 你想幹嘛");
+        return true;
+    }
     if(data1-data2<0){
+        alert("還有名額 趕快報名");
         return (true);
     }
     else{
@@ -31,18 +37,17 @@ function event_available(data1,data2){
         return (false);
     }
 }
-function encrypt(key, data) {
-        var cipher = crypto.createCipher('aes-256-cbc', key);
-        var crypted = cipher.update(text, 'utf-8', 'hex');
-        crypted += cipher.final('hex');
-
-        return crypted;
+function confir(){
+    if(myform.password.value == myform.password_confirm.value){
+        return(true);
+    }
+    else{
+        alert("密碼與確認密碼不一致");
+        return(false);
+    }
+}
+function myFunction(){
+    var x=document.getElementById("login-username");
+    x.value=x.value.toUpperCase();
 }
 
-function decrypt(key, data) {
-        var decipher = crypto.createDecipher('aes-256-cbc', key);
-        var decrypted = decipher.update(data, 'hex', 'utf-8');
-        decrypted += decipher.final('utf-8');
-
-        return decrypted;
-}

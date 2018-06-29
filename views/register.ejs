@@ -1,4 +1,37 @@
 <%- include header %>
+<script>
+function myFunction(user,name){
+    var x=document.getElementById("reg_uid");
+    var u = user.split(',');
+    var n = name.split(',');
+    for(var i =0;i<u.length;i++){
+    	if(x.value == u[i]){
+    		console.log(i);
+    		document.getElementById("print").innerHTML=n[i];
+    		return i ;
+    	}
+    }
+}
+function myFunction1(user,name,p,pp){
+    var x=document.getElementById(p);
+    var u = user.split(',');
+    var n = name.split(',');
+    for(var i =0;i<u.length;i++){
+    	if(x.value == u[i]){
+    		console.log(i);
+    		document.getElementById(pp).innerHTML=n[i];
+    		return i ;
+    	}
+    }
+}
+</script>
+<%var vals=[]; %>
+<%var name=[]; %>
+<%for(var i=0;i<user.length;i++){%>
+   <%vals.push(user[i].uid);%>
+   <%name.push(user[i].uname);%>
+<% } %>
+
                         <% if (!valid_reg) { %>
                             <div class="alert alert-danger col-sm-12">someone hasn't signup yet!</div>
                         <% } %>
@@ -9,6 +42,11 @@
                         <div class="panel-heading">
                             <div class="panel-title">報名 &nbsp <%=data[0].ename %></div>
                         </div> 
+                        <div>已報名隊伍 <%=data[0].remain %> 隊 <br>
+                        	 尚可報名 <%= data[0].max_team-data[0].remain %> 隊<br>
+                        	 每隊上限 <%=data[0].max_team_mem %> 人 <br>
+                        	 每隊至少 <%=data[0].min_team_mem %> 人 <br>
+                        </div>
                         <div class="panel-body" >
                             <form class="form-horizontal" role="form" method="post" action="/register/<%= data[0].event_id %>" onSubmit="return checkblank(this);">
 
@@ -24,17 +62,20 @@
 
                                 <div class="form-group">
                                     <label for="uid" class="col-md-3 control-label">隊長學號</label>
-                                    <div class="col-md-9">
-                                        <input type="text" class="form-control" name="uid" placeholder="id">
+                                    <div class="col-md-9"  >
+                                        <input type="text" id = "reg_uid" class="form-control" name="uid" placeholder="id" onchange="myFunction('<%=vals%>','<%=name%>')">
+                                        <p id="print"></p>
                                         <input type="hidden" name="leader" value= 1>
                                 	</div>
+                                	
                                 </div>
                                 <% for(var i=1; i<data[0].max_team_mem; i++) {%>
                                 	<% if(i < data[0].min_team_mem){%>
 	 	                                <div class="form-group">
 		                                    <label class="col-md-3 control-label">組員<%= i %>學號</label>
 		                                    <div class="col-md-9">
-		                                        <input type="text" class="form-control" name="uid" placeholder="id" required>
+		                                        <input type="text" id ='<%=i%>' class="form-control" name="uid" placeholder="id" required onchange="myFunction1('<%=vals%>','<%=name%>','<%=i%>','<%=i+data[0].max_team_mem%>')")">
+		                                        <p id='<%=i+data[0].max_team_mem%>'>&nbsp</p>
 		                                        <input type="hidden" name="leader" value= 0>
 		                                	</div>
 		                                </div> 
@@ -42,7 +83,8 @@
 		                                <div class="form-group">
 		                                    <label class="col-md-3 control-label">組員<%= i %>學號</label>
 		                                    <div class="col-md-9">
-		                                        <input type="text" class="form-control" name="uid" placeholder="id">
+		                                        <input type="text" id = '<%=i%>' class="form-control" name="uid" placeholder="id" onchange="myFunction1('<%=vals%>','<%=name%>','<%=i%>','<%=i+data[0].max_team_mem%>')">
+		                                        <p id='<%=i+data[0].max_team_mem%>'>&nbsp</p>
 		                                        <input type="hidden" name="leader" value= 0>
 		                                	</div>
 		                                </div>

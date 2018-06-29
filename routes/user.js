@@ -54,6 +54,7 @@ exports.signup = function(req, res){
  
 //-----------------------------------------------login page call------------------------------------------------------
 exports.login = function(req, res){
+   
    var message = '';
    var sess = req.session; 
    if(req.method == "POST"){
@@ -66,9 +67,11 @@ exports.login = function(req, res){
       db.query(sql, function(err, results){    
           console.log(results[0]);
          if(results.length){
-            req.session.admin = false;
             if(results[0].admin == 1){
                req.session.admin = true;
+            }
+            else{
+               req.session.admin = false;
             }
             req.session.login = true;
             req.session.valid_reg= true;
@@ -106,6 +109,8 @@ exports.dashboard = function(req, res, next){
       res.render('dashboard.ejs', {user:user});    
    });       
 };
+
+
 //------------------------------------logout functionality----------------------------------------------
 exports.logout=function(req,res){
    req.session.destroy(function(err) {
@@ -128,10 +133,11 @@ exports.profile = function(req, res){
 };
 //---------------------------------render event list-----------------------------------------------
 exports.events = function(req, res){
+   var message="";
    var sql = "SELECT max_team, remain, ename,rule , event_id FROM `event`";
    db.query(sql, function(err, result){  
       console.log(result);
-      res.render('events.ejs',{data:result});
+      res.render('events.ejs',{data:result,message: message});
    });   
 }
 //--------------------------------render rule-----------------------------------------------
@@ -158,7 +164,6 @@ exports.index = function(req, res){
 //---------------------------------render announce content-----------------------------------------------
 exports.anncs = function(req, res){
    
-      console.log("fuck");
       var id= req.params.annc_id;
       console.log(id); 
       var sql="SELECT title, content, announce_date FROM `announce` WHERE `announce_id`='"+id+"'";   
@@ -173,6 +178,59 @@ exports.anncs = function(req, res){
       });
       
 }
+//-----------------------------------------取消報名---------------------------------------------------------
+exports.cancle = function(req, res){
+   var message = "";
+   var uid = req.session.uid;
+   var event_id= req.params.event_id;
+   var sql = "select tt.leader,t.team_mem,u.uname,t.team_id,t.team_name , tt.uid , r.event_id,e.ename from team t inner join register r on r.team_id= t.team_id inner join event e on e.event_id = r.event_id inner join teammem tt on tt.team_id = t.team_id inner join user u on tt.uid = u.uid where r.event_id= '"+event_id+"' and tt.leader=1 and u.uid='"+uid+"';";          
+   db.query(sql, function(err, result){  
+      //console.log(result);
+      if(result.length){
+         message="is leader";
+         console.log(result[0].team_id);
+         var sql1 ="delete from register where team_id = '"+result[0].team_id+"' ;";
+         var sql2 ="delete from team where team_id = '"+result[0].team_id+"' ;";
+         var sql3 ="delete from teammem where team_id = '"+result[0].team_id+"' ;";
+         var sql5 ="update event set remain = remain - 1 where event_id = '"+event_id+"'; ";
+         db.query(sql5,function(err, result5){
+            if(err){
+               console.log("err5");
+            }
+         });
+         db.query(sql1,function(err, result1){
+            if(err){
+               console.log("err1");
+            }
+         });
+         //console.log(result1);
+         db.query(sql2,function(err, result2){
+            if(err){
+               console.log("err2");
+            }
+         });
+         db.query(sql3,function(err, result3){
+            if(err){
+               console.log("err3");
+            }
+         });
+         var sql4 = "SELECT max_team, remain, ename,rule , event_id FROM `event`";
+         db.query(sql4, function(err, result){  
+            console.log(result);
+            res.render('events.ejs',{data:result, message:message});
+         });          
+         //alert(message);
+      }
+      else{
+         message="not leader";
+         var sql4 = "SELECT max_team, remain, ename,rule , event_id FROM `event`";
+         db.query(sql4, function(err, result){  
+            console.log(result);
+            res.render('events.ejs',{data:result, message:message});
+         }); 
+      }
+   });
+};
 //------------------------------------------render registration-------------------------------------------
 exports.register = function(req, res){
    var message = "" ;
@@ -196,7 +254,6 @@ exports.register = function(req, res){
                   req.session.valid_reg=false;
                   isvalid=0;
                   res.redirect('/register/'+event_id);
-                  console.log("hen 棒嗎");
                   //req.flash('info', 'invalid user');              
                }          
             })
@@ -244,7 +301,7 @@ exports.register = function(req, res){
       if(req.session.valid_reg == true){
          var sql = "SELECT announce_id, year(announce_date) as year, month(announce_date) as month, day(announce_date) as day, title from `announce`";
          db.query(sql, function(err, result){
-         message = "registration Succesful";  
+         message = "報名成功";  
             res.render('index.ejs',{data:result, message: message});
          });
       }
@@ -252,28 +309,50 @@ exports.register = function(req, res){
    else {
       var id= req.params.event_id;
       console.log(id); 
-      var sql="SELECT event_id, ename, min_team_mem, max_team_mem FROM `event` WHERE `event_id`='"+id+"'";   
+      var sql="SELECT * FROM `event` WHERE `event_id`='"+id+"'";   
       db.query(sql, function(err, results){    
-         res.render('register.ejs',{data:results});  
+         var sql2 ="SELECT uid, uname from user;";
+         db.query(sql2, function(err, result2){
+            console.log(result2);
+            res.render('register.ejs',{data:results,user:result2});
+         }); 
       });
    }       
       
 }
 //---------------------------------------------Delete annc-----------------------------------------------
 exports.anncDelete = function(req, res){
-
+      var message = "";
       var id = req.params.annc_id;
       var sql = "Delete FROM `announce` WHERE `announce_id`='"+id+"'";
-
       db.query(sql, function(err,results){
-         res.redirect("/");
+         if(!err){
+            message = "公告刪除成功";
+            var sql1 = "SELECT announce_id, year(announce_date) as year, month(announce_date) as month, day(announce_date) as day, title from `announce`";
+            db.query(sql1, function(err, result1){  
+               res.render('index.ejs',{data:result1, message: message});
+            }); 
+         }
       });
 }
 //---------------------------------------delete event---------------------------------------------
 exports.eventDelete = function(req, res){
 
-      var id = req.params.event_id;
-      var sql = "Delete FROM `event` WHERE `event_id`='"+id+"'";
+      var event_id = req.params.event_id;
+      var sql3 = "select team_id from register where event_id = '"+event_id+"';";
+      db.query(sql3,function(err, result){
+         for(var i =0;i<result.length;i++){
+            var sql4 = "delete from team where team_id = '"+result[i].team_id+"';";
+            db.query(sql4,function(err, result1){
+            });
+            var sql5 ="delete from teammem where team_id = '"+result[i].team_id+"';";
+            db.query(sql5,function(err,result1){
+            });
+         }
+      });
+      var sql = "Delete FROM `event` WHERE `event_id`='"+event_id+"'";
+      var sql2 = "delete from register where `event_id`='"+event_id+"'";
+
 
       db.query(sql, function(err,results){
          res.redirect("/events");
@@ -325,8 +404,7 @@ exports.anncadd=function(req,res){
       db.query(sql, function(err, results){
          if(!err){
             res.redirect('/');
-         }
-         
+         } 
       }); 
    }
    else{
@@ -391,12 +469,9 @@ exports.eventedit=function(req,res){
    }
    else{
       var event_id = req.params.event_id;
-      console.log("hhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh");
-      console.log(event_id);
       var sql = "SELECT event_id, ename, max_team, min_team_mem, max_team_mem,remain, rule, year(event_date) as year, month(event_date) as month , day(event_date) as day FROM event where event_id = '"+event_id+"' ;";
       db.query(sql, function(err, results){
          if(!err){
-            console.log(results);
             res.render('eventedit',{data: results});            
          }
          if(err){
