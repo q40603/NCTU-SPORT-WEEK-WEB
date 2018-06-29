@@ -152,7 +152,7 @@ exports.rule = function(req, res){
    
       var id= req.params.event_id;
       console.log(id); 
-      var sql="SELECT event_id,ename, rule, min_team_mem, max_team_mem FROM `event` WHERE `event_id`='"+id+"'";   
+      var sql="SELECT event_date,event_id,ename, rule, min_team_mem, max_team_mem FROM `event` WHERE `event_id`='"+id+"'";   
                            
       db.query(sql, function(err, results){    
          res.render('rule.ejs',{data:results});  
