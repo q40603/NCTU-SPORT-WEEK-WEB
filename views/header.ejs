@@ -35,6 +35,11 @@
                     <% }else{%>
                       <li><a style =" cursor: pointer;" onclick = "if(sure_logout()) window.location.href='/logout';">登出</a></li>
                     <% }%>
+                    <% if(login && !admin){ %>
+                       <li style="margin-left: 500px; margin-top: 15px;"><%=uid%></li>
+                    <% }else if(admin){ %> 
+                      <li style="margin-left: 500px; margin-top: 15px;">admin</li>
+                    <% }%>
                   </ul>
             </nav>
             </div>
