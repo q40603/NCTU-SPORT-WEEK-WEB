@@ -35,16 +35,23 @@ exports.signup = function(req, res){
 
       var query = db.query(sql, function(err, result) {
          if(err){
-            res.render('signup.ejs',{message: "註冊失敗 請確認該用戶是否已存在"});
+            var sql1="SELECT * FROM `question`";
+            db.query(sql1, function(err, results){
+               console.log(results);
+               res.render('signup.ejs', {data:results, message: "註冊失敗 請確認該用戶是否已存在"});    
+            });                 
          }
          else{
-            message = "Succesfully! Your account has been created.";
-            res.render('signup.ejs',{message: message});            
+            var sql1="SELECT * FROM `question`";
+            db.query(sql1, function(err, results){
+               console.log(results);
+               res.render('signup.ejs', {data:results, message: "Succesfully! Your account has been created."});    
+            });        
          }
       });
    } 
    else{
-      var sql="SELECT uid FROM `user`";
+      var sql="SELECT * FROM `question`";
       db.query(sql, function(err, results){
          console.log(results);
          res.render('signup.ejs', {data:results, message: message});    

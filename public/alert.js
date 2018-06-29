@@ -10,7 +10,18 @@ function sure_logout(){
     }
 }
 function sure_delete_annc(){
-	var retVal = confirm("確定要刪除公告嗎 ?");
+	var retVal = confirm("確定要刪除嗎 ?");
+    if (retVal == true)
+    {
+        return true;
+    } 
+    else
+    {
+        return false;
+    }
+}
+function cancle(){
+    var retVal = confirm("確定要取消報名?");
     if (retVal == true)
     {
         return true;
@@ -37,9 +48,16 @@ function event_available(data1,data2,admin){
         return (false);
     }
 }
-function confir(){
+function confir(answer){
     if(myform.password.value == myform.password_confirm.value){
-        return(true);
+        if(myform.answer.value==answer){
+            return(true);
+        }
+        else{
+            alert("驗證碼錯誤");
+            return(false);
+        }
+        
     }
     else{
         alert("密碼與確認密碼不一致");
