@@ -41,6 +41,7 @@ app.use(session({
             }))
 app.use(function(req, res, next) {
   res.locals.login = req.session.login;
+  res.locals.uid = req.session.uid;
   res.locals.user = req.session.user;
   res.locals.valid_reg = req.session.valid_reg;
   res.locals.admin = req.session.admin;
@@ -67,6 +68,10 @@ app.get('/events/status',user.status);
 app.get('/events/status/:event_id',user.eventstatus);
 
 app.get('/register/delete/:event_id',user.cancle);
+
+app.get('/register/edit/:event_id/:user_id',user.edit);
+app.post('/register/edit/:event_id/:user_id',user.edit);
+
 app.get('/anncs/delete/:annc_id', user.anncDelete);//to delete the announce with annc_id
 app.get('/events/delete/:event_id', user.eventDelete);//to delete the announce with annc_id
 

@@ -238,6 +238,49 @@ exports.cancle = function(req, res){
       }
    });
 };
+//-------------------------------------------修改報名------------------------------------------------------
+exports.edit = function(req, res){
+   var event_id= req.params.event_id;
+   var user_id = req.params.user_id;
+   if(req.method == "POST"){
+        res.redirect('/register/'+event_id);
+   }
+   else{
+      var sql2 ="select t.team_id from team t, team tt, register r where t.team_id = tt.team_id and r.team_id = t.team_id and r.event_id = '"+event_id+"';";
+
+      db.query(sql2, function(err, result2){
+         if(result2.length){
+         var sql = "select tt.leader,t.team_mem,u.uname,t.team_id,t.team_name , tt.uid , r.event_id,e.ename from team t inner join register r on r.team_id= t.team_id inner join event e on e.event_id = r.event_id inner join teammem tt on tt.team_id = t.team_id inner join user u on tt.uid = u.uid where r.event_id= '"+event_id+"' and t.team_id='"+result2[0].team_id+"';";   
+            db.query(sql, function(err , result){
+               if(result.length && !err){
+                  for(var i=0 ;i<result.length;i++){
+                     if(result[i].leader==1){
+                        var sq3="SELECT * FROM `event` WHERE `event_id`='"+event_id+"'";   
+                        db.query(sq3, function(err, result3){    
+                           var sql4 ="SELECT uid, uname from user;";
+                           db.query(sql4, function(err, result4){
+                              console.log(result2);
+                              res.render('edit.ejs',{data:result3,user:result4,value: result, leader: i});
+                           }); 
+                        });
+                     }
+                  }
+               }      
+            });         
+         }
+               else{
+                  var message="尚未報名";
+                  var sql = "SELECT max_team, remain, ename,rule , event_id FROM `event`";
+                  db.query(sql, function(err, results){  
+                     console.log(results);
+                     res.render('events.ejs',{data:results,message: message});
+                  });            
+               }            
+      });
+
+   }
+
+}
 //------------------------------------------render registration-------------------------------------------
 exports.register = function(req, res){
    var message = "" ;
@@ -315,7 +358,7 @@ exports.register = function(req, res){
    } 
    else {
       var id= req.params.event_id;
-      console.log(id); 
+      
       var sql="SELECT * FROM `event` WHERE `event_id`='"+id+"'";   
       db.query(sql, function(err, results){    
          var sql2 ="SELECT uid, uname from user;";

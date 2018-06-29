@@ -1,0 +1,105 @@
+<%- include header %>
+<script>
+function myFunction(user,name){
+    var x=document.getElementById("reg_uid");
+    var u = user.split(',');
+    var n = name.split(',');
+    for(var i =0;i<u.length;i++){
+    	if(x.value == u[i]){
+    		console.log(i);
+    		document.getElementById("print").innerHTML=n[i];
+    		return i ;
+    	}
+    }
+}
+function myFunction1(user,name,p,pp){
+    var x=document.getElementById(p);
+    var u = user.split(',');
+    var n = name.split(',');
+    for(var i =0;i<u.length;i++){
+    	if(x.value == u[i]){
+    		console.log(i);
+    		document.getElementById(pp).innerHTML=n[i];
+    		return i ;
+    	}
+    }
+}
+</script>
+<%var vals=[]; %>
+<%var name=[]; %>
+<%for(var i=0;i<user.length;i++){%>
+   <%vals.push(user[i].uid);%>
+   <%name.push(user[i].uname);%>
+<% } %>
+
+                        <% if (!valid_reg) { %>
+                            <div class="alert alert-danger col-sm-12">someone hasn't signup yet!</div>
+                        <% } %>
+		<div class="container col-sm-12" id="mainform">
+            <div id="registerbox" style=" margin-top:50px" class="mainbox col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
+                                                           
+                    <div class="panel panel-info">
+                        <div class="panel-heading">
+                            <div class="panel-title">修改 &nbsp <%=data[0].ename %>報名資料</div>
+                        </div> 
+                        <div>已報名隊伍 <%=data[0].remain %> 隊 <br>
+                        	 尚可報名 <%= data[0].max_team-data[0].remain %> 隊<br>
+                        	 每隊上限 <%=data[0].max_team_mem %> 人 <br>
+                        	 每隊至少 <%=data[0].min_team_mem %> 人 <br>
+                        </div>
+                        <div class="panel-body" >
+                            <form class="form-horizontal" role="form" method="post" action="/register/<%= data[0].event_id %>" onSubmit="return checkblank(this);">
+
+
+                                <div class="form-group">
+                                    <label for="team_name" class="col-md-3 control-label">隊名</label>
+                                    <div class="col-md-9">
+                                        <input type="text" value="<%=value[0].team_name %>" class="form-control" name="team_name" placeholder="Name">
+                                        <input type="hidden" name="team_mem" value="<%=data[0].max_team_mem %> ">
+                                        <input type="hidden" name="event_id" value="<%=data[0].event_id %> ">
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="uid" class="col-md-3 control-label">隊長學號</label>
+                                    <div class="col-md-9"  >
+                                        <input type="text" value="<%=value[leader-1].uname%>" id = "reg_uid" class="form-control" name="uid" placeholder="id" onchange="myFunction('<%=vals%>','<%=name%>')">
+                                        <p id="print"></p>
+                                        <input type="hidden" name="leader" value= 1>
+                                	</div>
+                                	
+                                </div>
+                                <% for(var i=0; i<data[0].max_team_mem-1; i++) {%>
+                                	<% if(i < value[0].team_mem-1){%>
+	 	                                <div class="form-group">
+		                                    <label class="col-md-3 control-label">組員<%= i %>學號</label>
+		                                    <div class="col-md-9">
+		                                        <input type="text" value="<%=value[i].uname%>" id ='<%=i%>' class="form-control" name="uid" placeholder="id" required onchange="myFunction1('<%=vals%>','<%=name%>','<%=i%>','<%=i+data[0].max_team_mem%>')")">
+		                                        <p id='<%=i+data[0].max_team_mem%>'>&nbsp</p>
+		                                        <input type="hidden" name="leader" value= 0>
+		                                	</div>
+		                                </div> 
+		                             <% }else{%>                            		 
+		                                <div class="form-group">
+		                                    <label class="col-md-3 control-label">組員<%= i %>學號</label>
+		                                    <div class="col-md-9">
+		                                        <input type="text" id = '<%=i%>' class="form-control" name="uid" placeholder="id" onchange="myFunction1('<%=vals%>','<%=name%>','<%=i%>','<%=i+data[0].max_team_mem%>')">
+		                                        <p id='<%=i+data[0].max_team_mem%>'>&nbsp</p>
+		                                        <input type="hidden" name="leader" value= 0>
+		                                	</div>
+		                                </div>
+	                                <% }%>
+								<% } %>
+                                <div class="form-group">
+                                    <!-- Button -->                                       
+                                    <div class="col-md-offset-3 col-md-9">
+                                        <button id="btn-register" type="submit" class="btn btn-info"><i class="icon-hand-right"></i> &nbsp Submit</button>
+                                        
+                                    </div>
+                                </div>
+                            </form>
+                         </div>
+                    </div> 
+                </div>            
+         </div>
+<%- include footer %>
