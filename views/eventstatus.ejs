@@ -1,12 +1,20 @@
 <%- include header %>
-<h3><%=data[0].ename%>的報名狀況</h3>
-<% for(var i=0; i<data.length;) {%>
-	<% var l = data[i].team_mem %>
-	<h3><%=data[i].team_name%></h3>
-	<% for(var j=i;j<i+l;j++) {%>
-		<h4><%=data[j].uname%> &ensp; <%=data[j].uid%></h4>
+<% if(admin) {%>
+<% if(data.length==0){ %>
+	<h1>目前尚無任何人報名</h1>
+<% }else{%>
+	<h3><%=data[0].ename%>的報名狀況</h3>
+	<% for(var i=0; i<data.length;) {%>
+		<% var l = data[i].team_mem %>
+		<h3><%=data[i].team_name%></h3>
+		<% for(var j=i;j<i+l;j++) {%>
+			<h4><%=data[j].uname%> &ensp; <%=data[j].uid%></h4>
+		<% }%>
+		<hr>
+		<% var i = i + l %>
 	<% }%>
-	<hr>
-	<% var i = i + l %>
+<% }%>
+<% }else{%>
+	<h1>你沒有權限瀏覽此頁</h1>
 <% }%>
 <%- include footer %>

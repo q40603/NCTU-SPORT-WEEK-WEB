@@ -164,7 +164,8 @@ exports.rule = function(req, res){
 exports.index = function(req, res){
    var message = "";
    var sql = "SELECT announce_id, year(announce_date) as year, month(announce_date) as month, day(announce_date) as day, title from `announce`";
-   db.query(sql, function(err, result){  
+   db.query(sql, function(err, result){
+         console.log(result);  
       res.render('index.ejs',{data:result, message: message});
    });   
 }
@@ -252,15 +253,20 @@ exports.edit = function(req, res){
          if(result2.length){
          var sql = "select tt.leader,t.team_mem,u.uname,t.team_id,t.team_name , tt.uid , r.event_id,e.ename from team t inner join register r on r.team_id= t.team_id inner join event e on e.event_id = r.event_id inner join teammem tt on tt.team_id = t.team_id inner join user u on tt.uid = u.uid where r.event_id= '"+event_id+"' and t.team_id='"+result2[0].team_id+"';";   
             db.query(sql, function(err , result){
+               console.log(result);
+               console.log(result.length);
                if(result.length && !err){
                   for(var i=0 ;i<result.length;i++){
                      if(result[i].leader==1){
+                        var leader = i;
+                        console.log(result[i]);
                         var sq3="SELECT * FROM `event` WHERE `event_id`='"+event_id+"'";   
                         db.query(sq3, function(err, result3){    
                            var sql4 ="SELECT uid, uname from user;";
                            db.query(sql4, function(err, result4){
                               console.log(result2);
-                              res.render('edit.ejs',{data:result3,user:result4,value: result, leader: i});
+                              console.log(i);
+                              res.render('edit.ejs',{data:result3,user:result4,value: result, leader: leader});
                            }); 
                         });
                      }
@@ -422,10 +428,12 @@ exports.eventstatus=function(req,res){
    var id = req.params.event_id;
    var sql = "select t.team_mem,u.uname,t.team_id,t.team_name , tt.uid , r.event_id,e.ename from team t inner join register r on r.team_id= t.team_id inner join event e on e.event_id = r.event_id inner join teammem tt on tt.team_id = t.team_id inner join user u on tt.uid = u.uid where r.event_id= '"+id+"';";
 
-   db.query(sql, function(err, result){  
-      console.log("specified status");
+   db.query(sql, function(err, result){
       console.log(result);
-      res.render('eventstatus.ejs',{data:result});
+         console.log("specified status");
+         console.log(result);
+         res.render('eventstatus.ejs',{data:result});         
+        
    });
 };
 //-----------------------------edit users details after login----------------------------------

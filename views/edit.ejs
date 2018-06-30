@@ -1,4 +1,5 @@
 <%- include header %>
+<% if(admin) {%>
 <script>
 function myFunction(user,name){
     var x=document.getElementById("reg_uid");
@@ -63,18 +64,19 @@ function myFunction1(user,name,p,pp){
                                 <div class="form-group">
                                     <label for="uid" class="col-md-3 control-label">隊長學號</label>
                                     <div class="col-md-9"  >
-                                        <input type="text" value="<%=value[leader-1].uname%>" id = "reg_uid" class="form-control" name="uid" placeholder="id" onchange="myFunction('<%=vals%>','<%=name%>')">
+                                        <input type="text" value="<%=value[leader].uid%>" id = "reg_uid" class="form-control" name="uid" placeholder="id" onchange="myFunction('<%=vals%>','<%=name%>')">
                                         <p id="print"></p>
                                         <input type="hidden" name="leader" value= 1>
                                 	</div>
                                 	
                                 </div>
-                                <% for(var i=0; i<data[0].max_team_mem-1; i++) {%>
-                                	<% if(i < value[0].team_mem-1){%>
+                                <% for(var i=0; i<data[0].max_team_mem; i++) {%>
+                                    <% if(i == leader) continue;%>
+                                	<% if(i < value[0].team_mem){%>
 	 	                                <div class="form-group">
 		                                    <label class="col-md-3 control-label">組員<%= i %>學號</label>
 		                                    <div class="col-md-9">
-		                                        <input type="text" value="<%=value[i].uname%>" id ='<%=i%>' class="form-control" name="uid" placeholder="id" required onchange="myFunction1('<%=vals%>','<%=name%>','<%=i%>','<%=i+data[0].max_team_mem%>')")">
+		                                        <input type="text" value="<%=value[i].uid%>" id ='<%=i%>' class="form-control" name="uid" placeholder="id" required onchange="myFunction1('<%=vals%>','<%=name%>','<%=i%>','<%=i+data[0].max_team_mem%>')")">
 		                                        <p id='<%=i+data[0].max_team_mem%>'>&nbsp</p>
 		                                        <input type="hidden" name="leader" value= 0>
 		                                	</div>
@@ -102,4 +104,7 @@ function myFunction1(user,name,p,pp){
                     </div> 
                 </div>            
          </div>
+<% }else{%>
+    <h1>你沒有權限瀏覽此頁</h1>
+<% }%>
 <%- include footer %>
