@@ -1,0 +1,32 @@
+<%- include header %>
+<% if(admin) {%>
+	<form class="form-horizontal" role="form" enctype="multipart/form-data" method="post" action="/anncs/edit/<%=data[0].announce_id%>" onSubmit="return checkblank(this);">
+		<div class="input-group input-group-lg">
+		    <h3>標題</h3>
+		    <input type="text" name="title" value="<%=data[0].title%>" style="font-size:18pt;width:500px;">
+		</div>
+                            <div class="input-group input-group-lg">
+                                <h3>照片</h3>
+                                <div>
+                                    <input class="form-control" value="<%=data[0].image%>" type="file" name="uploaded_image" accept=""/ check>
+									<div class="col-md-3 col-lg-3 " align="center"> <img alt="User Pic" src="http://localhost:8080/images/upload_images/<%=data[0].image%>" class="img-responsive"> </div>
+                                </div>
+                            </div>  
+		<div class="input-group input-group-lg">
+		    <h3>公告內容</h3>
+		    <textarea type="text" name="content" style="font-size:18pt;height:420px;width:500px;"><%=data[0].content%>
+		    </textarea>
+
+		</div>
+	    <div class="col-md-offset-0 col-md-9"  >
+	        <button id="btn-register" type="submit" class="btn btn-info"><i class="icon-hand-right"></i> &nbsp 發布</button>
+	    </div>
+
+	</form>
+	    <div class="col-md-offset-3 col-md-9" style="margin-top: -35px; margin-left: 80px;">
+	        <button id="btn-register" class="btn btn-danger" method = "get" onclick="window.location.href='/anncs/add';" class="btn btn-info"><i class="icon-hand-right"></i> &nbsp 取消</button>
+	    </div>
+<% }else{%>
+	<h1>你沒有權限瀏覽此頁</h1>
+<% }%>
+<%- include footer %>

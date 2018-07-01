@@ -77,6 +77,10 @@ app.get('/register/edit/:event_id/:user_id',user.edit);
 app.post('/register/edit/:event_id/:user_id',user.edit);
 
 app.get('/anncs/delete/:annc_id', user.anncDelete);//to delete the announce with annc_id
+app.get('/anncs/edit/:annc_id', user.anncedit);//to delete the announce with annc_id
+app.post('/anncs/edit/:annc_id', user.anncedit);//to delete the announce with annc_id
+
+
 app.get('/events/delete/:event_id', user.eventDelete);//to delete the announce with annc_id
 
 app.get('/events/add', user.eventadd);

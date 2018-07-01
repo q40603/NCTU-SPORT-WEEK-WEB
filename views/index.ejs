@@ -15,6 +15,7 @@
                     <th>公告</th>
                     <% if(admin) {%>
                       <th>刪除</th>
+                      <th>編輯</th>
                     <% } %>
                   </tr>
                 </thead>
@@ -27,6 +28,7 @@
                 </td>
                 <% if(admin) {%>
                 <td><button class="btn btn-info" onclick=" if(sure_delete_annc()) window.location.href='/anncs/delete/<%= data[i].announce_id %>';" >刪除</button></td>
+                <td><button class="btn btn-info" onclick="window.location.href='/anncs/edit/<%= data[i].announce_id %>';" >編輯</button></td>
                 <% }%> 
             </tr>
           <% } %>

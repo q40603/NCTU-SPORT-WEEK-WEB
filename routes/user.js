@@ -453,6 +453,48 @@ exports.anncDelete = function(req, res){
          }
       });
 }
+//----------------------------------------------edit annc ---------------------------------------
+exports.anncedit = function(req, res){
+   var announce_id = req.params.annc_id;
+   if(req.method == "POST"){
+      
+      var post = req.body;
+      var title = post.title;
+      var content = post.content;
+      console.log(req.files);
+      if (!req.files)
+         return res.status(400).send('No files were uploaded.');
+      var file = req.files.uploaded_image;
+      console.log(file.length);
+      var image=file.name;
+
+      if(file.mimetype == "image/jpeg" ||file.mimetype == "image/png"||file.mimetype == "image/gif" ){
+         file.mv('public/images/upload_images/'+file.name, function(err) {  
+            if (err)
+               return res.status(500).send(err);
+            var sql = "update announce set title = '"+title+"', content = '"+content+"', image = '"+image+"' where announce_id = '"+announce_id+"';";
+            var query = db.query(sql, function(err, result) {
+               res.redirect('/');
+            });
+         });
+      } 
+      else{
+         message = "This format is not allowed , please upload file with '.png','.gif','.jpg'";
+         var sql1 = "SELECT announce_id, year(announce_date) as year, month(announce_date) as month, day(announce_date) as day, title from `announce`";
+         db.query(sql1, function(err,result1){
+            res.render('index.ejs',{data:result1, message: message});
+         })
+      }
+   }
+   else{
+      var sql = "select *from announce where announce_id = '"+announce_id+"';";
+      db.query(sql, function(err,result){
+         if(!err){
+            res.render('anncedit.ejs',{data: result});
+         }
+      });
+   }
+}
 //---------------------------------------delete event---------------------------------------------
 exports.eventDelete = function(req, res){
 
