@@ -1,3 +1,8 @@
+<script>
+function check_up_load(){
+	document.getElementById("upload").value=1;
+}
+</script>
 <%- include header %>
 <% if(admin) {%>
 	<form class="form-horizontal" role="form" enctype="multipart/form-data" method="post" action="/anncs/edit/<%=data[0].announce_id%>" onSubmit="return checkblank(this);">
@@ -8,7 +13,8 @@
                             <div class="input-group input-group-lg">
                                 <h3>照片</h3>
                                 <div>
-                                    <input class="form-control" value="<%=data[0].image%>" type="file" name="uploaded_image" accept=""/ check>
+                                    <input class="form-control" onchange="check_up_load()" type="file" name="uploaded_image" accept=""/ check>
+                                    <input type="hidden" value = 0 id= "upload" name="upload">
 									<div class="col-md-3 col-lg-3 " align="center"> <img alt="User Pic" src="http://localhost:8080/images/upload_images/<%=data[0].image%>" class="img-responsive"> </div>
                                 </div>
                             </div>  
