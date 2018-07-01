@@ -2,6 +2,8 @@
 * Module dependencies.
 */
 var express = require('express')
+  busboy = require("then-busboy"),
+  fileUpload = require('express-fileupload')
   , routes = require('./routes')
   , user = require('./routes/user')
   , http = require('http')
@@ -16,9 +18,9 @@ var bodyParser=require("body-parser");
 //var cookieParser = require('cookie-parser');
 var connection = mysql.createConnection({
             host     : 'localhost', 
-            user     : 'root',
-            password : '112',
-            database : 'final'
+            user     : 'tkche870302',
+            password : 'Mq870955677765',
+            database : 'test'
             //socketPath : '/tmp/mysql.sock'
             });
 connection.connect();
@@ -33,6 +35,7 @@ app.use(flash());
 //app.use(flash(app));
 app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(fileUpload());
 app.use(session({
               secret: 'keyboard cat',
               resave: false,

@@ -162,6 +162,7 @@ exports.rule = function(req, res){
 //---------------------------------render announce title-------------------------------------------
 exports.index = function(req, res){
    var message = "";
+
    var sql = "SELECT announce_id, year(announce_date) as year, month(announce_date) as month, day(announce_date) as day, title from `announce`";
    db.query(sql, function(err, result){
          console.log(result);  
@@ -173,14 +174,14 @@ exports.anncs = function(req, res){
    
       var id= req.params.annc_id;
       console.log(id); 
-      var sql="SELECT title, content, announce_date FROM `announce` WHERE `announce_id`='"+id+"'";   
+      var sql="SELECT year(announce_date) as year, month(announce_date) as month, day(announce_date) as day, content, title, image FROM `announce` WHERE `announce_id`='"+id+"'";   
                            
       db.query(sql, function(err, results){   
          if(results.length){
             res.render('anncs.ejs',{data:results});
          }
          else{
-            res.render('anncadd.ejs');
+            res.redirect('/');
          }   
       });
       
@@ -519,12 +520,29 @@ exports.anncadd=function(req,res){
       console.log(post);
       var title = post.title;
       var content = post.content;
-      var sql = "INSERT INTO `announce` (`announce_date`,`title`,`content`) VALUES (NOW(),'"+title+"','"+content+"');";
-      db.query(sql, function(err, results){
-         if(!err){
+      if (!req.files)
+         return res.status(400).send('No files were uploaded.');
+      var file = req.files.uploaded_image;
+      var img_name=file.name;
+      if(file.mimetype == "image/jpeg" ||file.mimetype == "image/png"||file.mimetype == "image/gif" ){
+         file.mv('public/images/upload_images/'+file.name, function(err) {  
+         console.log(img_name); 
+            if (err)
+               return res.status(500).send(err);
+            var sql = "INSERT INTO `announce` (`announce_date`,`title`,`content`,`image`) VALUES (NOW(),'"+title+"','"+content+"','"+img_name+"');";
+            var query = db.query(sql, function(err, result) {
             res.redirect('/');
-         } 
-      }); 
+            });
+         });
+      } 
+      else{
+         message = "This format is not allowed , please upload file with '.png','.gif','.jpg'";
+         var sql1 = "SELECT announce_id, year(announce_date) as year, month(announce_date) as month, day(announce_date) as day, title from `announce`";
+         db.query(sql1, function(err,result1){
+            res.render('index.ejs',{data:result1, message: message});
+         })
+      }
+/////////////////////////////////////////////////////////      
    }
    else{
       var sql = "SELECT * FROM `announce`";
