@@ -1,7 +1,7 @@
 <%- include header %>
 <script>
 function myFunction(user,name){
-    var x=document.getElementById("reg_uid");
+    var x=document.getElementById("leader_uid");
     var u = user.split(',');
     var n = name.split(',');
     for(var i =0;i<u.length;i++){
@@ -10,9 +10,8 @@ function myFunction(user,name){
     		document.getElementById("print").innerHTML=n[i];
     		return i ;
     	}
+        document.getElementById("print").innerHTML="此用戶尚未註冊";
     }
-    document.getElementById("print").innerHTML="此人尚未註冊";
-    return i;
 }
 function myFunction1(user,name,p,pp){
     var x=document.getElementById(p);
@@ -24,9 +23,8 @@ function myFunction1(user,name,p,pp){
     		document.getElementById(pp).innerHTML=n[i];
     		return i ;
     	}
+        document.getElementById(pp).innerHTML="此用戶尚未註冊";
     }
-    document.getElementById(pp).innerHTML="此人尚未註冊";
-    return i;
 }
 </script>
 <%var vals=[]; %>
@@ -68,7 +66,7 @@ function myFunction1(user,name,p,pp){
                                 <div class="form-group">
                                     <label for="uid" class="col-md-3 control-label">隊長學號</label>
                                     <div class="col-md-9"  >
-                                        <input type="text" id = "reg_uid" class="form-control" name="uid" placeholder="id" onchange="myFunction('<%=vals%>','<%=name%>')">
+                                        <input type="text" id = "leader_uid" class="form-control" name="uid" placeholder="id" onchange="myFunction('<%=vals%>','<%=name%>')">
                                         <p id="print"></p>
                                         <input type="hidden" name="leader" value= 1>
                                 	</div>

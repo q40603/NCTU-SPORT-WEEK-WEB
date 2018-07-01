@@ -4,6 +4,7 @@
 var express = require('express')
   , routes = require('./routes')
   , user = require('./routes/user')
+  , register = require('./routes/register')
   , http = require('http')
   , path = require('path');
 //var methodOverride = require('method-override');
@@ -62,8 +63,8 @@ app.get('/home/profile',user.profile);//to render users profile
 app.get('/events',user.events);//to render eventlist
 app.get('/anncs/:annc_id',user.anncs);//to render eventlist
 app.get('/rule/:event_id',user.rule); //to render event's rule
-app.get('/register/:event_id',user.register);
-app.post('/register/:event_id',user.register);
+app.get('/register/:event_id',register.register);
+app.post('/register/:event_id',register.register);
 app.get('/events/status',user.status);
 app.get('/events/status/:event_id',user.eventstatus);
 
