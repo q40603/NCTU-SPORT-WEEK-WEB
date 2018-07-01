@@ -1,6 +1,7 @@
 <%- include header %>
 <% if(admin) {%>
 <script>
+    //輸入學號印出名字
 function myFunction(user,name){
     var x=document.getElementById("reg_uid");
     var u = user.split(',');
@@ -13,6 +14,7 @@ function myFunction(user,name){
     	}
     }
 }
+    //輸入學號印出名字
 function myFunction1(user,name,p,pp){
     var x=document.getElementById(p);
     var u = user.split(',');
@@ -96,8 +98,7 @@ function myFunction1(user,name,p,pp){
                                 <div class="form-group">
                                     <!-- Button -->                                       
                                     <div class="col-md-offset-3 col-md-9">
-                                        <button id="btn-register" type="submit" class="btn btn-info"><i class="icon-hand-right"></i> &nbsp Submit</button>
-                                        
+                                        <button id="btn-register" type="submit" class="btn btn-info"><i class="icon-hand-right"></i> &nbsp Submit</button>    
                                     </div>
                                 </div>
                             </form>

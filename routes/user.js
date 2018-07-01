@@ -31,7 +31,7 @@ exports.signup = function(req, res){
       var grade = post.grade;
 
       console.log(post);
-      var sql = "INSERT INTO `test`.`user` (`uid`, `dcid`, `uname`, `gender`, `email`, `phone_num`, `password`, `grade`) VALUES ('" + uid + "','"+ department +"','" + uname + "','" + gender + "','" + email + "','" + phone_num + "','" + pass + "','" + grade + "');"
+      var sql = "INSERT INTO `user` (`uid`, `dcid`, `uname`, `gender`, `email`, `phone_num`, `password`, `grade`) VALUES ('" + uid + "','"+ department +"','" + uname + "','" + gender + "','" + email + "','" + phone_num + "','" + pass + "','" + grade + "');"
 
       var query = db.query(sql, function(err, result) {
          if(err){
@@ -79,8 +79,7 @@ exports.login = function(req, res){
             }
             else{
                req.session.admin = false;
-            }
-            req.session.login = true;
+            }            req.session.login = true;
             req.session.valid_reg= true;
             req.session.uid = results[0].uid;
             req.session.user = results[0];
@@ -314,6 +313,7 @@ exports.edit = function(req, res){
 
       db.query(sql2, function(err, result2){
          if(result2.length){
+            //取出跟這個事件所有有關的東西
          var sql = "select tt.leader,t.team_mem,u.uname,t.team_id,t.team_name , tt.uid , r.event_id,e.ename from team t inner join register r on r.team_id= t.team_id inner join event e on e.event_id = r.event_id inner join teammem tt on tt.team_id = t.team_id inner join user u on tt.uid = u.uid where r.event_id= '"+event_id+"' and t.team_id='"+result2[0].team_id+"';";   
             db.query(sql, function(err , result){
                console.log(result);
