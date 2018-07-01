@@ -244,7 +244,70 @@ exports.edit = function(req, res){
    var event_id= req.params.event_id;
    var user_id = req.params.user_id;
    if(req.method == "POST"){
-        res.redirect('/register/'+event_id);
+/*      var post  = req.body;
+      var event_id = post.event_id;
+      var team_name = post.team_name;
+      var uid = post.uid;
+      var leader = post.leader;
+      var max_length = post.team_mem;
+      console.log(post);
+      var actual_length = 0;
+      var isvalid=1;
+      var team_id = post.team_id;
+      for(var i=0; i<max_length; i++){
+         if(uid[i]>0){
+            var sql0="SELECT uid FROM `user` WHERE `uid`='"+uid[i]+"'";
+            db.query(sql0, function(err, result){
+               console.log(result);
+               if(!result.length){
+                  message = "someone hasn't signup yet!";
+                  req.session.valid_reg=false;
+                  isvalid=0;
+                  res.redirect('/register/'+event_id);            
+               }          
+            })
+            actual_length ++ ;
+         }
+      }
+      if(isvalid == 1){
+         req.session.valid_reg=true;
+      }
+      console.log(actual_length);
+      var sql1 = "update `team` set `team_name` = '"+team_name+"',`team_mem` = '"+actual_length+"' where team_id = '"+team_id+"'; " ;
+      db.query(sql1, function(err, results){
+         if(err){
+            console.log("err");
+         }
+      });      
+      var sql2 = "select team_id from `team` where `team_name`= '"+team_name+"'";
+
+      db.query(sql2, function(err, results1){
+         console.log(results1);
+         var sql4 = "update `register` set `event_id` = '"+event_id+"',`time` = NOW(),`team_id` = '"+team_id+"'; " ;
+         db.query(sql4, function(err, results2){
+            if(err){
+               console.log("err");
+            }
+         });           
+         for(var i=0; i<actual_length; i++){
+            
+            var sql3 = "update `teammem` set `team_id` = '"+results1[0].team_id+"',`uid` = '"+uid[i]+"',`leader` = '"+leader[i]+"';";
+            db.query(sql3, function(err, results0){
+               console.log(results0);
+                if(err){
+                  console.log("err");
+               }
+            });            
+         }
+      });     
+      if(req.session.valid_reg == true){
+         var sql = "SELECT announce_id, year(announce_date) as year, month(announce_date) as month, day(announce_date) as day, title from `announce`";
+         db.query(sql, function(err, result){
+         message = "資訊更改成功";  
+            res.render('index.ejs',{data:result, message: message});
+         });
+      }*/
+      res.redirect('/events');
    }
    else{
       var sql2 ="select t.team_id from team t, team tt, register r where t.team_id = tt.team_id and r.team_id = t.team_id and r.event_id = '"+event_id+"';";
@@ -264,8 +327,6 @@ exports.edit = function(req, res){
                         db.query(sq3, function(err, result3){    
                            var sql4 ="SELECT uid, uname from user;";
                            db.query(sql4, function(err, result4){
-                              console.log(result2);
-                              console.log(i);
                               res.render('edit.ejs',{data:result3,user:result4,value: result, leader: leader});
                            }); 
                         });

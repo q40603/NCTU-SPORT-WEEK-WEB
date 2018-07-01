@@ -49,7 +49,7 @@ function myFunction1(user,name,p,pp){
                         	 每隊至少 <%=data[0].min_team_mem %> 人 <br>
                         </div>
                         <div class="panel-body" >
-                            <form class="form-horizontal" role="form" method="post" action="/register/<%= data[0].event_id %>" onSubmit="return checkblank(this);">
+                            <form class="form-horizontal" role="form" method="post" action="/register/edit/<%= data[0].event_id %>/<%=uid%>" onSubmit="return checkblank(this);">
 
 
                                 <div class="form-group">
@@ -58,6 +58,7 @@ function myFunction1(user,name,p,pp){
                                         <input type="text" value="<%=value[0].team_name %>" class="form-control" name="team_name" placeholder="Name">
                                         <input type="hidden" name="team_mem" value="<%=data[0].max_team_mem %> ">
                                         <input type="hidden" name="event_id" value="<%=data[0].event_id %> ">
+                                        <input type="hidden" name="team_id" value="<%=value[0].team_id %> ">
                                     </div>
                                 </div>
 
