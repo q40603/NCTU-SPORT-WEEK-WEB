@@ -18,7 +18,7 @@ var connection = mysql.createConnection({
             host     : 'localhost', 
             user     : 'root',
             password : '112',
-            database : 'test'
+            database : 'final'
             //socketPath : '/tmp/mysql.sock'
             });
 connection.connect();
