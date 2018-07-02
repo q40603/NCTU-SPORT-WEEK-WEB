@@ -131,11 +131,27 @@ exports.profile = function(req, res){
       res.redirect("/login");
       return;
    }
-
-   var sql="SELECT * FROM `user` WHERE `uid`='"+id+"'";          
-   db.query(sql, function(err, result){  
-      res.render('profile.ejs',{data:result});
+   var sql2 = "select distinct(team_id) from teammem where uid = '"+id+"' ;";
+   db.query(sql2, function(err , result2){
+      console.log("team_id");
+      console.log(result2);
+      if(!err){
+            var sql3 ="select *from register r inner join team t on t.team_id = r.team_id inner join teammem tt on t.team_id = tt.team_id inner join user u on u.uid = tt.uid inner join event e on e.event_id= r.event_id;";
+            db.query(sql3, function(err, result3){
+               console.log("every member");
+               console.log(result3);
+               if(!err){
+                  var sql="SELECT * FROM `user` WHERE `uid`='"+id+"'";          
+                  db.query(sql, function(err, result){
+                        console.log("personal");  
+                        console.log(result);
+                     res.render('profile.ejs',{data:result, team_id:result2, element: result3});
+                  });                  
+               }
+            })
+      }
    });
+
 };
 //---------------------------------render event list-----------------------------------------------
 exports.events = function(req, res){
