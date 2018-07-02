@@ -6,7 +6,7 @@
             <div class="container">
               <h2>最新公告</h2> 
                 <% if(admin) {%>
-                <td><button class="btn btn-info" onclick="window.location.href='/anncs/add';" >新增公告</button></td>
+                <td><button class="btn btn-primary" onclick="window.location.href='/anncs/add';" >新增公告</button></td>
                 <% }%>                      
               <table class="table" width="40">
                 <thead>
@@ -27,8 +27,8 @@
                     <a  href="/anncs/<%= data[i].announce_id %>" style="cursor: pointer"><%= data[i].title %></a>   
                 </td>
                 <% if(admin) {%>
-                <td><button class="btn btn-info" onclick=" if(sure_delete_annc()) window.location.href='/anncs/delete/<%= data[i].announce_id %>';" >刪除</button></td>
-                <td><button class="btn btn-info" onclick="window.location.href='/anncs/edit/<%= data[i].announce_id %>';" >編輯</button></td>
+                <td><button class="btn btn-danger" onclick=" if(sure_delete_annc()) window.location.href='/anncs/delete/<%= data[i].announce_id %>';" >刪除</button></td>
+                <td><button class="btn btn-danger" onclick="window.location.href='/anncs/edit/<%= data[i].announce_id %>';" >編輯</button></td>
                 <% }%> 
             </tr>
           <% } %>

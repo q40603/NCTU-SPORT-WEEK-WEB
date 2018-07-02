@@ -19,9 +19,9 @@ var bodyParser=require("body-parser");
 //var cookieParser = require('cookie-parser');
 var connection = mysql.createConnection({
             host     : 'localhost', 
-            user     : 'tkche870302',
-            password : 'Mq870955677765',
-            database : 'test'
+            user     : 'root',
+            password : '112',
+            database : 'final'
             //socketPath : '/tmp/mysql.sock'
             });
 connection.connect();

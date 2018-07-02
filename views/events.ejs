@@ -10,7 +10,7 @@
             <div class="container">
               <h2>活動列表</h2>   
                 <% if(admin) {%>
-                <td><button class="btn btn-info" onclick="window.location.href='/events/add';" >新增活動</button></td>
+                <td><button class="btn btn-primary" onclick="window.location.href='/events/add';" >新增活動</button></td>
                 <% }%>      
               <table class="table" width="40">
                 <thead>
@@ -47,9 +47,9 @@
                 <td ><button class="btn btn-info"  onclick=" window.location.href='/register/edit/<%= data[i].event_id %>/<%= uid %>';" >修改報名資訊</button></td>
                 <% }%>
                 <% if(admin) {%>
-                <td style="width: 50Px;"><button class="btn btn-info" onclick=" if(sure_delete_annc()) window.location.href='/events/delete/<%= data[i].event_id %>';" >移除</button></td>
-                <td style="width: 50Px;"><button class="btn btn-info" onclick="window.location.href='/events/status/<%= data[i].event_id %>';" >報名狀況</button></td>
-                <td style="width: 50Px;"><button class="btn btn-info" onclick="window.location.href='/events/edit/<%= data[i].event_id %>';" >修改</button></td>
+                <td style="width: 50Px;"><button class="btn btn-danger" onclick=" if(sure_delete_annc()) window.location.href='/events/delete/<%= data[i].event_id %>';" >移除</button></td>
+                <td style="width: 50Px;"><button class="btn btn-danger" onclick="window.location.href='/events/status/<%= data[i].event_id %>';" >報名狀況</button></td>
+                <td style="width: 50Px;"><button class="btn btn-danger" onclick="window.location.href='/events/edit/<%= data[i].event_id %>';" >修改</button></td>
                 <% }%>
             </tr>
           <% } %>

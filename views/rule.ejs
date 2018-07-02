@@ -1,15 +1,11 @@
 <%- include header %>
-              <table class="table" width="40">
-                <thead>
-                  <tr>
-                    <th><%= data[0].ename %></th>
-                  </tr>
-                </thead>
-                  <p><%=data[0].event_date%></p>
-                <tbody>
-                  <tr>
-                    <td><%=data[0].rule%></td>
-                  </tr>
-                </tbody>
-              </table>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-3"></div>
+        <div class="col-lg-6">
+          <div class="head"><p><%= data[0].ename %></p></div>
+          <hr/>
+          <div class="content"><p><b>活動時間：</b><%=data[0].event_date%></p></div>
+          <div class="content"><p><b>活動規則：</b><%=data[0].rule%></p></div>
+        </div>
 <%- include footer %>
