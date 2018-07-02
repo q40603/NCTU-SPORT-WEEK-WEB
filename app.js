@@ -2,6 +2,8 @@
 * Module dependencies.
 */
 var express = require('express')
+  busboy = require("then-busboy"),
+  fileUpload = require('express-fileupload')
   , routes = require('./routes')
   , user = require('./routes/user')
   , register = require('./routes/register')
@@ -17,9 +19,9 @@ var bodyParser=require("body-parser");
 //var cookieParser = require('cookie-parser');
 var connection = mysql.createConnection({
             host     : 'localhost', 
-            user     : 'root',
-            password : '112',
-            database : 'final'
+            user     : 'tkche870302',
+            password : 'Mq870955677765',
+            database : 'test'
             //socketPath : '/tmp/mysql.sock'
             });
 connection.connect();
@@ -34,6 +36,7 @@ app.use(flash());
 //app.use(flash(app));
 app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(fileUpload());
 app.use(session({
               secret: 'keyboard cat',
               resave: false,
@@ -74,6 +77,10 @@ app.get('/register/edit/:event_id/:user_id',user.edit);
 app.post('/register/edit/:event_id/:user_id',user.edit);
 
 app.get('/anncs/delete/:annc_id', user.anncDelete);//to delete the announce with annc_id
+app.get('/anncs/edit/:annc_id', user.anncedit);//to delete the announce with annc_id
+app.post('/anncs/edit/:annc_id', user.anncedit);//to delete the announce with annc_id
+
+
 app.get('/events/delete/:event_id', user.eventDelete);//to delete the announce with annc_id
 
 app.get('/events/add', user.eventadd);

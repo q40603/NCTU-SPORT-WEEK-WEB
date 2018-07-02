@@ -78,7 +78,7 @@ function getMemName(user,name,p,pp){
                                 </div>
                                 <% for(var i=0; i<data[0].max_team_mem; i++) {%>
                                     <% if(i == leader) continue;%>
-                                	<% if(i < value[0].team_mem){%>
+                                	<% if(i < value[0].team_mem || i<data[0].min_team_mem){%>
 	 	                                <div class="form-group">
 		                                    <label class="col-md-3 control-label">組員<%= i %>學號</label>
 		                                    <div class="col-md-9">
