@@ -613,7 +613,6 @@ exports.anncadd=function(req,res){
       }    
    }
    else{
-      console.log("壞掉了");
       var sql = "SELECT * FROM `announce`";
       db.query(sql, function(err, results){
          res.render('anncadd.ejs',{data: results});

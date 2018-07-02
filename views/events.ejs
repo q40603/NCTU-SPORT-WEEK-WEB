@@ -43,8 +43,8 @@
                 </td>
                 <% if(login) {%>
                 <td ><button class="btn btn-info"  onclick=" if(event_available('<%= data[i].remain %>','<%=data[i].max_team %>','<%= admin %>')) window.location.href='/register/<%= data[i].event_id %>';" >報名</button></td>
-                <td ><button class="btn btn-info"  onclick="if(cancle()) window.location.href='/register/delete/<%= data[i].event_id %>';" >取消報名</button></td>
-                <td ><button class="btn btn-info"  onclick=" window.location.href='/register/edit/<%= data[i].event_id %>/<%= uid %>';" >修改報名資訊</button></td>
+                <td ><button class="btn btn-danger"  onclick="if(cancle()) window.location.href='/register/delete/<%= data[i].event_id %>';" >取消報名</button></td>
+                <td ><button class="btn btn-warning"  onclick=" window.location.href='/register/edit/<%= data[i].event_id %>/<%= uid %>';" >修改報名資訊</button></td>
                 <% }%>
                 <% if(admin) {%>
                 <td style="width: 50Px;"><button class="btn btn-info" onclick=" if(sure_delete_annc()) window.location.href='/events/delete/<%= data[i].event_id %>';" >移除</button></td>

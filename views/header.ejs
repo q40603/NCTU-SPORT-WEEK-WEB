@@ -10,7 +10,6 @@
    <base href="/">
 </head>
 <body>
-
   <div class="container">
     <!-- Static navbar -->
             <div>
@@ -36,7 +35,7 @@
                       <li><a style =" cursor: pointer;" onclick = "if(sure_logout()) window.location.href='/logout';">登出</a></li>
                     <% }%>
                     <% if(login && !admin){ %>
-                       <li style="margin-left: 500px;"><a style = "cursor :pointer;" onclick=" window.location.href ='/profile';"><%=uid%></a></li>
+                       <li style="margin-left: 500px;"><a style = "cursor :pointer;" onclick=" window.location.href ='/profile';"><%=user.uname%>你好</a></li>
                     <% }else if(admin){ %> 
                       <li style="margin-left: 500px;"><a style = "cursor :pointer;" onclick=" window.location.href ='/profile';">admin</a></li>
                     <% }%>

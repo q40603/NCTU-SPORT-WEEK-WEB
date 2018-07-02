@@ -1,5 +1,4 @@
 <%- include header %>
-<% if(admin) {%>
 <script>
     //輸入學號印出名字
 function myFunction(user,name){
@@ -98,7 +97,8 @@ function myFunction1(user,name,p,pp){
                                 <div class="form-group">
                                     <!-- Button -->                                       
                                     <div class="col-md-offset-3 col-md-9">
-                                        <button id="btn-register" type="submit" class="btn btn-info"><i class="icon-hand-right"></i> &nbsp Submit</button>    
+                                        <button id="btn-register" type="submit" class="btn btn-info"><i class="icon-hand-right"></i> &nbsp 修改</button>
+                                        <button id="btn-register" onclick="window.location.href='/events';" class="btn btn-danger"><i class="icon-hand-right"></i> &nbsp 取消</button>    
                                     </div>
                                 </div>
                             </form>
@@ -106,7 +106,4 @@ function myFunction1(user,name,p,pp){
                     </div> 
                 </div>            
          </div>
-<% }else{%>
-    <h1>你沒有權限瀏覽此頁</h1>
-<% }%>
 <%- include footer %>
