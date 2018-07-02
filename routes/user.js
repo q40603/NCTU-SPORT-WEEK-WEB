@@ -583,7 +583,6 @@ exports.editprofile=function(req,res){
 };
 
 //-----------------------------------add announcement-----------------------------------------------
-
 exports.anncadd=function(req,res){
    if(req.method == "POST"){
       var post  = req.body;
@@ -610,11 +609,11 @@ exports.anncadd=function(req,res){
          var sql1 = "SELECT announce_id, year(announce_date) as year, month(announce_date) as month, day(announce_date) as day, title from `announce`";
          db.query(sql1, function(err,result1){
             res.render('index.ejs',{data:result1, message: message});
-         })
-      }
-/////////////////////////////////////////////////////////      
+         });
+      }    
    }
    else{
+      console.log("壞掉了");
       var sql = "SELECT * FROM `announce`";
       db.query(sql, function(err, results){
          res.render('anncadd.ejs',{data: results});

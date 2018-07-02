@@ -53,7 +53,9 @@ app.use(function(req, res, next) {
 });
  
 // development only
- 
+app.get('/anncs/add', user.anncadd);
+app.post('/anncs/add', user.anncadd);
+
 app.get('/', user.index);//call for main index page
 app.get('/signup', user.signup);//call for signup page
 app.post('/signup', user.signup);//call for signup post 
@@ -91,7 +93,6 @@ app.post('/events/add', user.eventadd);
 app.get('/events/edit/:event_id', user.eventedit);
 app.post('/events/edit/:event_id', user.eventedit);
 
-app.get('/anncs/add', user.anncadd);
-app.post('/anncs/add', user.anncadd);
+
 //Middleware
 app.listen(8080)
