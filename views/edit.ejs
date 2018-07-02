@@ -1,29 +1,32 @@
 <%- include header %>
 <script>
     //輸入學號印出名字
-function myFunction(user,name){
+function getLeaderName(user,name){
     var x=document.getElementById("reg_uid");
     var u = user.split(',');
     var n = name.split(',');
     for(var i =0;i<u.length;i++){
     	if(x.value == u[i]){
     		console.log(i);
-    		document.getElementById("print").innerHTML=n[i];
+    		document.getElementById("print").innerHTML = n[i];
     		return i ;
     	}
+        document.getElementById("print").innerHTML = "此用戶尚未註冊";
     }
 }
     //輸入學號印出名字
-function myFunction1(user,name,p,pp){
+function getMemName(user,name,p,pp){
     var x=document.getElementById(p);
     var u = user.split(',');
     var n = name.split(',');
     for(var i =0;i<u.length;i++){
     	if(x.value == u[i]){
     		console.log(i);
-    		document.getElementById(pp).innerHTML=n[i];
+    		document.getElementById(pp).innerHTML = n[i];
     		return i ;
     	}
+        document.getElementById(pp).innerHTML = "此用戶尚未註冊";
+
     }
 }
 </script>
@@ -35,7 +38,7 @@ function myFunction1(user,name,p,pp){
 <% } %>
 
                         <% if (!valid_reg) { %>
-                            <div class="alert alert-danger col-sm-12">someone hasn't signup yet!</div>
+                            <div class="alert alert-danger col-sm-12">報名失敗！有成員尚未註冊。</div>
                         <% } %>
 		<div class="container col-sm-12" id="mainform">
             <div id="registerbox" style=" margin-top:50px" class="mainbox col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
@@ -66,7 +69,7 @@ function myFunction1(user,name,p,pp){
                                 <div class="form-group">
                                     <label for="uid" class="col-md-3 control-label">隊長學號</label>
                                     <div class="col-md-9"  >
-                                        <input type="text" value="<%=value[leader].uid%>" id = "reg_uid" class="form-control" name="uid" placeholder="id" onchange="myFunction('<%=vals%>','<%=name%>')">
+                                        <input type="text" value="<%=value[leader].uid%>" id = "reg_uid" class="form-control" name="uid" placeholder="id" onchange="getLeaderName('<%=vals%>','<%=name%>')">
                                         <p id="print"></p>
                                         <input type="hidden" name="leader" value= 1>
                                 	</div>
@@ -78,7 +81,7 @@ function myFunction1(user,name,p,pp){
 	 	                                <div class="form-group">
 		                                    <label class="col-md-3 control-label">組員<%= i %>學號</label>
 		                                    <div class="col-md-9">
-		                                        <input type="text" value="<%=value[i].uid%>" id ='<%=i%>' class="form-control" name="uid" placeholder="id" required onchange="myFunction1('<%=vals%>','<%=name%>','<%=i%>','<%=i+data[0].max_team_mem%>')")">
+		                                        <input type="text" value="<%=value[i].uid%>" id ='<%=i%>' class="form-control" name="uid" placeholder="id" required onchange="getMemName('<%=vals%>','<%=name%>','<%=i%>','<%=i+data[0].max_team_mem%>')")">
 		                                        <p id='<%=i+data[0].max_team_mem%>'>&nbsp</p>
 		                                        <input type="hidden" name="leader" value= 0>
 		                                	</div>
@@ -87,7 +90,7 @@ function myFunction1(user,name,p,pp){
 		                                <div class="form-group">
 		                                    <label class="col-md-3 control-label">組員<%= i %>學號</label>
 		                                    <div class="col-md-9">
-		                                        <input type="text" id = '<%=i%>' class="form-control" name="uid" placeholder="id" onchange="myFunction1('<%=vals%>','<%=name%>','<%=i%>','<%=i+data[0].max_team_mem%>')">
+		                                        <input type="text" id = '<%=i%>' class="form-control" name="uid" placeholder="id" onchange="getMemName('<%=vals%>','<%=name%>','<%=i%>','<%=i+data[0].max_team_mem%>')">
 		                                        <p id='<%=i+data[0].max_team_mem%>'>&nbsp</p>
 		                                        <input type="hidden" name="leader" value= 0>
 		                                	</div>
