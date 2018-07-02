@@ -71,6 +71,8 @@ app.post('/register/:event_id',register.register);
 app.get('/events/status',user.status);
 app.get('/events/status/:event_id',user.eventstatus);
 
+app.get('/profile',user.profile);
+
 app.get('/register/delete/:event_id',user.cancle);
 
 app.get('/register/edit/:event_id/:user_id',user.edit);

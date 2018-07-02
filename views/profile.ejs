@@ -8,13 +8,12 @@
         </div>
         <div class="panel-body">
           <div class="row">
-            <div class="col-md-3 col-lg-3 " align="center"> <img alt="User Pic" src="http://babyinfoforyou.com/wp-content/uploads/2014/10/avatar-300x300.png" class="img-circle img-responsive"> </div>
             <div class=" col-md-9 col-lg-9 "> 
               <table class="table table-user-information">
                 <tbody>
                   <tr>
-                    <td>User Id:</td>
-                    <td><%=data[0].uid%></td>
+                    <td>Email:</td>
+                    <td><%=data[0].email%></td>
                   </tr>
                   <tr>
                     <td>Mobile:</td>
@@ -26,4 +25,20 @@
           </div>
         </div>
     </div>
+<% for(var i = 0 ;i< team_id.length;i++){ %>
+  <% for(var j=0 ; j< element.length ;j++){ %>
+       <% if(element[j].team_id == team_id[i].team_id){ %>
+          <h1>活動: <%=element[j].ename%></h1>
+          <h2>隊名: <%=element[j].team_name%></h2>
+            <%var l = element[j].team_mem %>
+            <h4>組員:</h4>
+            <%for( var k = j ; k< j+l ; k++){ %>
+                <% if(element[k].uid == uid) continue; %>
+                <h4><%=element[k].uname%></h4>
+            <%}%>
+            <% var j = j + l %>
+            <hr>  
+     <%}%>
+    <%}%>
+<%}%>
  <%- include footer %>
