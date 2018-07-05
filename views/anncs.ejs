@@ -1,10 +1,13 @@
 <%- include header %>
 
-  <h1><%= data[0].title %></h1>
-
-  <h5><%= data[0].year %>&ensp;/&ensp;<%= data[0].month %>&ensp;/&ensp;<%= data[0].day %></h5>
-  <br>
-  <h3 ><%= data[0].content %></h3>
-<div class=" " align="center"> <img alt="User Pic" src="http://localhost:8080/images/upload_images/<%=data[0].image%>" class="img-responsive"> </div>
-
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-3"></div>
+			<div class="col-lg-6">
+				<div class=" " align="center"> <img alt="User Pic" src="http://localhost:8080/images/upload_images/<%=data[0].image%>" class="img-responsive"> </div>
+				<div class="head"><p><%= data[0].title %></p></div>
+				<div class="content"><p><b>日期：</b><%= data[0].year %>&ensp;/&ensp;<%= data[0].month %>&ensp;/&ensp;<%= data[0].day %><p></div>	
+				<hr/>			
+				<div class="content"><p><%= data[0].content %><p></div>
+			</div>
 <%- include footer %>
